@@ -1,4 +1,4 @@
-package com.pietech.bundle.ui.home.settings
+package com.pietech.bundle.ui.home.products
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,24 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import com.pietech.bundle.R
 
-class SettingsFragment : Fragment() {
+class ProductsFragment : Fragment() {
 
     companion object {
-        fun newInstance() = SettingsFragment()
+        fun newInstance() = ProductsFragment()
     }
 
-    private lateinit var viewModel: SettingsViewModel
+    private lateinit var viewModel: ProductsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        return inflater.inflate(R.layout.fragment_products, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ProductsViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

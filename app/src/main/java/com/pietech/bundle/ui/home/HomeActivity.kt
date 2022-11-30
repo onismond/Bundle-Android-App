@@ -2,6 +2,8 @@ package com.pietech.bundle.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.pietech.bundle.R
@@ -17,7 +19,32 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+
         val navController = findNavController(R.id.nav_fragment)
         binding.bottomNavigationView.setupWithNavController(navController)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.app_nav, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_notifications -> {
+            true
+        }
+
+        R.id.action_refresh -> {
+            true
+        }
+
+        R.id.action_logout -> {
+            true
+        }
+
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
     }
 }
