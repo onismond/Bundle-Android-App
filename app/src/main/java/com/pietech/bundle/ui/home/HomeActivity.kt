@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.pietech.bundle.R
 import com.pietech.bundle.databinding.ActivityHomeBinding
@@ -19,10 +21,10 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
+//        setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_fragment)
-        binding.bottomNavigationView.setupWithNavController(navController)
+//        val navController = findNavController(R.id.nav_fragment)
+//        binding.bottomNavigationView.setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -47,4 +49,6 @@ class HomeActivity : AppCompatActivity() {
             super.onOptionsItemSelected(item)
         }
     }
+
+    override fun onSupportNavigateUp() = findNavController(R.id.nav_fragment).navigateUp()
 }

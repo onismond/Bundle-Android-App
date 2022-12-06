@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.pietech.bundle.ui.home.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.pietech.bundle.ui.home.profile.ProfileFragment"
@@ -30,4 +34,9 @@
         android:name="com.pietech.bundle.ui.home.new_product.NewProductFragment"
         android:label="fragment_new_product"
         tools:layout="@layout/fragment_new_product" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.pietech.bundle.ui.home.home.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" />
 </navigation>

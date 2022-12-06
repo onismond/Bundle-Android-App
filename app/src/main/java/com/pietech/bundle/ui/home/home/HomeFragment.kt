@@ -6,27 +6,37 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import com.pietech.bundle.R
+import com.pietech.bundle.databinding.FragmentHomeBinding
+import com.pietech.bundle.util.snackbar
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), KodeinAware {
 
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
+    override val kodein by kodein()
 
     private lateinit var viewModel: HomeViewModel
+    private lateinit var binding: FragmentHomeBinding
+    private val factory: HomeViewModelFactory by instance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(layoutInflater)
+        viewModel = ViewModelProvider(this, factory)[(HomeViewModel::class.java)]
+
+        binding.button.setOnClickListener {
+            it.snackbar("Button Clicked")
+            val action = HomeFragmentDirections.actionHomeFragmentToCategoryFragment()
+            it.findNavController().navigate(action)
+        }
+
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
 }
