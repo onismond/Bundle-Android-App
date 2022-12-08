@@ -6,12 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:title="  Bundle"
+        app:titleTextColor="@color/app_title"
+        app:titleTextAppearance="@style/TextAppearance.Material3.ActionBar.Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:menu="@menu/app_nav"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
 
     <fragment
-        android:id="@+id/nav_fragment"
+        android:id="@+id/fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.pietech.bundle.R
 import com.pietech.bundle.databinding.ActivityHomeBinding
 import com.pietech.bundle.databinding.ActivityLoginBinding
+import com.pietech.bundle.util.snackbar
 
 class HomeActivity : AppCompatActivity() {
 
@@ -21,7 +22,7 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(binding.toolbar)
 
 //        val navController = findNavController(R.id.nav_fragment)
 //        binding.bottomNavigationView.setupWithNavController(navController)
@@ -42,6 +43,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         R.id.action_logout -> {
+            binding.root.snackbar("log out")
             true
         }
 
@@ -50,5 +52,5 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSupportNavigateUp() = findNavController(R.id.nav_fragment).navigateUp()
+    override fun onSupportNavigateUp() = findNavController(R.id.fragment).navigateUp()
 }
