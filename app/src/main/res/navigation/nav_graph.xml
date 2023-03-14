@@ -8,35 +8,75 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.pietech.bundle.ui.home.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        android:label=" Bundle"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_categoryFragment"
             app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_productFragment"
+            app:destination="@id/productFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.pietech.bundle.ui.home.profile.ProfileFragment"
-        android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        android:label=" Profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_myProductsFragment"
+            app:destination="@id/myProductsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.pietech.bundle.ui.home.cart.CartFragment"
-        android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
-    <fragment
-        android:id="@+id/productsFragment"
-        android:name="com.pietech.bundle.ui.home.products.ProductsFragment"
-        android:label="fragment_products"
-        tools:layout="@layout/fragment_products" />
+        android:label=" Cart"
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/newProductFragment"
         android:name="com.pietech.bundle.ui.home.new_product.NewProductFragment"
-        android:label="fragment_new_product"
+        android:label="New Product"
         tools:layout="@layout/fragment_new_product" />
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.pietech.bundle.ui.home.home.CategoryFragment"
-        android:label="fragment_category"
+        android:name="com.pietech.bundle.ui.home.category.CategoryFragment"
+        android:label=" Category"
         tools:layout="@layout/fragment_category" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.pietech.bundle.ui.home.search.SearchFragment"
+        android:label=" Search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.pietech.bundle.ui.home.product.ProductFragment"
+        android:label="Product"
+        tools:layout="@layout/fragment_product" >
+    </fragment>
+    <fragment
+        android:id="@+id/myProductsFragment"
+        android:name="com.pietech.bundle.ui.home.my_products.MyProductsFragment"
+        android:label="My Products"
+        tools:layout="@layout/fragment_my_products" />
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.pietech.bundle.ui.home.orders.OrdersFragment"
+        android:label="Orders"
+        tools:layout="@layout/fragment_orders" />
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="com.pietech.bundle.ui.home.checkout.CheckoutFragment"
+        android:label="Checkout"
+        tools:layout="@layout/fragment_checkout" />
+
 </navigation>

@@ -4,15 +4,21 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.pietech.bundle.data.db.entities.Cart
+import com.pietech.bundle.data.db.entities.Order
+import com.pietech.bundle.data.db.entities.Product
 import com.pietech.bundle.data.db.entities.User
 
 @Database(
-    entities = [User::class],
-    version = 1
+    entities = [User::class, Product::class, Cart::class, Order::class,],
+    version = 3
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getUserDao() : UserDao
+    abstract fun getCurrentProductDao() : CurrentProductDao
+    abstract fun getCartDao() : CartDao
+    abstract fun getOrderDao() : OrderDao
 
     companion object{
         @Volatile

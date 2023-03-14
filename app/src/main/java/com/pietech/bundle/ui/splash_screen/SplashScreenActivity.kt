@@ -11,6 +11,7 @@ import com.pietech.bundle.databinding.ActivitySplashScreenBinding
 import com.pietech.bundle.ui.auth.AuthViewModel
 import com.pietech.bundle.ui.auth.AuthViewModelFactory
 import com.pietech.bundle.ui.auth.LoginActivity
+import com.pietech.bundle.ui.splash_screen.WelcomeActivity
 import com.pietech.bundle.ui.home.HomeActivity
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
@@ -38,11 +39,11 @@ class SplashScreenActivity : AppCompatActivity(), KodeinAware {
                     startActivity(intent)
                     finish()
                 } else {
-                    intent = Intent(this, LoginActivity::class.java)
+                    intent = Intent(this, WelcomeActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
             }
-        }, 2000)
+        }, 1000)
     }
 }

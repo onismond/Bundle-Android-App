@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 
 private const val KEY_SAVED_AT = "key_saved_at"
+private const val KEY_TOKEN = "key_token"
 
 class PreferenceProvider (
     context: Context
@@ -20,6 +21,17 @@ class PreferenceProvider (
             KEY_SAVED_AT,
             savedAt
         ).apply()
+    }
+
+    fun saveToken(token: String) {
+        preference.edit().putString(
+            KEY_TOKEN,
+            token
+        ).apply()
+    }
+
+    fun getToken(): String? {
+        return preference.getString(KEY_TOKEN, null)
     }
 
     fun getLastSavedAt(): String? {

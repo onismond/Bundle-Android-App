@@ -7,26 +7,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pietech.bundle.R
+import com.pietech.bundle.databinding.FragmentNewProductBinding
+import com.pietech.bundle.ui.home.HomeViewModel
+import com.pietech.bundle.ui.home.HomeViewModelFactory
+import com.pietech.bundle.util.BaseFragment
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class NewProductFragment : Fragment() {
+class NewProductFragment : BaseFragment(), KodeinAware {
 
-    companion object {
-        fun newInstance() = NewProductFragment()
-    }
+    override val kodein by kodein()
+    private lateinit var viewModel: HomeViewModel
+    private val factory: HomeViewModelFactory by instance()
+    override var bottomNavigationViewVisibility = View.INVISIBLE
+    private lateinit var binding: FragmentNewProductBinding
 
-    private lateinit var viewModel: NewProductViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_new_product, container, false)
-    }
+        binding = FragmentNewProductBinding.inflate(inflater)
+        viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(NewProductViewModel::class.java)
-        // TODO: Use the ViewModel
+        return binding.root
     }
 
 }

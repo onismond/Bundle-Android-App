@@ -5,9 +5,9 @@
         android:icon="@drawable/home_icon"
         android:title="Home" />
     <item
-        android:id="@+id/productsFragment"
-        android:icon="@drawable/products_icon"
-        android:title="Products" />
+        android:id="@+id/searchFragment"
+        android:icon="@drawable/search"
+        android:title="Search" />
     <item
         android:id="@+id/newProductFragment"
         android:icon="@drawable/new_product_icon"

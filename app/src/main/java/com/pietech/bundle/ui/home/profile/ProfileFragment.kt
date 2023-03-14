@@ -6,27 +6,39 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.pietech.bundle.R
+import com.pietech.bundle.databinding.FragmentProfileBinding
+import com.pietech.bundle.ui.home.HomeViewModel
+import com.pietech.bundle.ui.home.HomeViewModelFactory
+import com.pietech.bundle.util.BaseFragment
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment(), KodeinAware {
 
-    companion object {
-        fun newInstance() = ProfileFragment()
-    }
-
-    private lateinit var viewModel: ProfileViewModel
+    override val kodein by kodein()
+    private lateinit var viewModel: HomeViewModel
+    private val factory: HomeViewModelFactory by instance()
+    private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-        // TODO: Use the ViewModel
+        binding = FragmentProfileBinding.inflate(inflater)
+        viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        binding.imageViewAvatar.clipToOutline = true
+        binding.textViewMyProducts.setOnClickListener {
+            val action = ProfileFragmentDirections.actionProfileFragmentToMyProductsFragment()
+            this.findNavController().navigate(action)
+        }
+        binding.textViewOrders.setOnClickListener {
+            val action = ProfileFragmentDirections.actionProfileFragmentToOrdersFragment()
+            this.findNavController().navigate(action)
+        }
+        return binding.root
     }
 
 }

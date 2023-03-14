@@ -8,7 +8,7 @@ import com.pietech.bundle.data.preferences.PreferenceProvider
 import com.pietech.bundle.data.repositories.HomeRepository
 import com.pietech.bundle.data.repositories.UserRepository
 import com.pietech.bundle.ui.auth.AuthViewModelFactory
-import com.pietech.bundle.ui.home.home.HomeViewModelFactory
+import com.pietech.bundle.ui.home.HomeViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
