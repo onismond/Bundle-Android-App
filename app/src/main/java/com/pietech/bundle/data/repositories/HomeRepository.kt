@@ -7,10 +7,7 @@ import com.pietech.bundle.data.db.entities.Product
 import com.pietech.bundle.data.db.entities.User
 import com.pietech.bundle.data.network.MyApi
 import com.pietech.bundle.data.network.SafeApiRequest
-import com.pietech.bundle.data.network.responses.AuthResponse
-import com.pietech.bundle.data.network.responses.IndexResponse
-import com.pietech.bundle.data.network.responses.OrderResponse
-import com.pietech.bundle.data.network.responses.SearchResponse
+import com.pietech.bundle.data.network.responses.*
 
 class HomeRepository(
     private val api: MyApi,
@@ -19,6 +16,10 @@ class HomeRepository(
 
     suspend fun index() : IndexResponse {
         return apiRequest { api.index() }
+    }
+
+    suspend fun getSimilarProducts(product_id: String) : SimilarProsuctsResponse {
+        return apiRequest { api.getSimilarProducts(product_id) }
     }
 
     fun getUser() = db.getUserDao().getCurrentUser()
@@ -49,6 +50,10 @@ class HomeRepository(
 
     suspend fun submitOrder(token: String, cart: String) : OrderResponse {
         return apiRequest { api.order(token, cart) }
+    }
+
+    suspend fun loadOrders(token: String) : OrdersResponse {
+        return apiRequest { api.loadOrders(token) }
     }
 
 

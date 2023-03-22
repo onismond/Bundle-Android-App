@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_productFragment"
             app:destination="@id/productFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_productStoreFragment"
+            app:destination="@id/productStoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -78,5 +81,10 @@
         android:name="com.pietech.bundle.ui.home.checkout.CheckoutFragment"
         android:label="Checkout"
         tools:layout="@layout/fragment_checkout" />
+    <fragment
+        android:id="@+id/productStoreFragment"
+        android:name="com.pietech.bundle.ui.home.product_store.ProductStoreFragment"
+        android:label="Store Product"
+        tools:layout="@layout/fragment_product_store" />
 
 </navigation>

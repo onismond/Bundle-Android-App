@@ -2,10 +2,7 @@ package com.pietech.bundle.data.network
 
 import com.pietech.bundle.data.db.entities.Cart
 import com.pietech.bundle.data.db.entities.User
-import com.pietech.bundle.data.network.responses.AuthResponse
-import com.pietech.bundle.data.network.responses.IndexResponse
-import com.pietech.bundle.data.network.responses.OrderResponse
-import com.pietech.bundle.data.network.responses.SearchResponse
+import com.pietech.bundle.data.network.responses.*
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -27,11 +24,23 @@ interface MyApi {
     ) : Response<SearchResponse>
 
     @FormUrlEncoded
+    @POST("product/similar")
+    suspend fun getSimilarProducts(
+        @Field("product_id") product_id: String
+    ) : Response<SimilarProsuctsResponse>
+
+    @FormUrlEncoded
     @POST("order")
     suspend fun order(
         @Field("token") token: String,
         @Field("cart") cart: String
     ) : Response<OrderResponse>
+
+    @FormUrlEncoded
+    @POST("orders/load")
+    suspend fun loadOrders(
+        @Field("token") token: String,
+    ) : Response<OrdersResponse>
 
     @FormUrlEncoded
     @POST("login")
@@ -58,7 +67,7 @@ interface MyApi {
                 .build()
             return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("http://192.168.246.83/api/")
+                .baseUrl("http://192.168.110.83/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(MyApi::class.java)

@@ -18,6 +18,10 @@ class HomeViewModel(
         repository.index()
     }
 
+    suspend fun getSimilarProducts(product_id: String) = withContext(Dispatchers.IO){
+        repository.getSimilarProducts(product_id)
+    }
+
     fun getLoggedInUser() = repository.getUser()
 
     fun getUserToken() = repository.getUserToken()
@@ -53,6 +57,8 @@ class HomeViewModel(
     fun getOrders() = repository.getOrders()
 
     suspend fun submitOrder(cart: String) = repository.submitOrder(getUserToken(), cart)
+
+    suspend fun loadOrders() = repository.loadOrders(getUserToken())
 
 
 

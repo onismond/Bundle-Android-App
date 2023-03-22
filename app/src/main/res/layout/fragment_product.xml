@@ -17,15 +17,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <Button
-                android:id="@+id/button_add_to_cart"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:text="Add To Cart"
-                android:background="@drawable/btn_secondary_ripple"
-                app:layout_constraintEnd_toEndOf="@+id/text_view_product_name"
-                app:layout_constraintTop_toTopOf="@+id/button_buy_now" />
-
             <ImageView
                 android:id="@+id/image_view_main"
                 android:layout_width="wrap_content"
@@ -105,7 +96,7 @@
                 android:id="@+id/text_view_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="230.00"
+                android:text="00.00"
                 android:textSize="23sp"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/textView9"
@@ -131,15 +122,14 @@
                 app:layout_constraintTop_toTopOf="@+id/text_view_location" />
 
             <Button
-                android:id="@+id/button_buy_now"
+                android:id="@+id/button_view_contact"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginEnd="5dp"
                 android:background="@drawable/btn_primary_ripple"
-                android:text="Buy now"
+                android:text="View Contact"
                 android:textColor="@color/white"
-                app:layout_constraintEnd_toStartOf="@+id/button_add_to_cart"
+                app:layout_constraintEnd_toEndOf="@+id/text_view_product_name"
                 app:layout_constraintStart_toStartOf="@+id/text_view_product_name"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_amount" />
 
@@ -151,7 +141,7 @@
                 android:text="Description"
                 android:textSize="23dp"
                 app:layout_constraintStart_toStartOf="@+id/text_view_product_name"
-                app:layout_constraintTop_toBottomOf="@+id/button_buy_now" />
+                app:layout_constraintTop_toBottomOf="@+id/button_view_contact" />
 
             <TextView
                 android:id="@+id/text_view_description"
@@ -204,15 +194,16 @@
                 android:id="@+id/textView53"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Featured"
+                android:text="Similar"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/text_view_product_name"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_featured"
+                android:id="@+id/recycler_view_similar"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginBottom="60dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

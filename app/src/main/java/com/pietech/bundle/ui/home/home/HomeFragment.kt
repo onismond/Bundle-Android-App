@@ -68,8 +68,14 @@ class HomeFragment : BaseFragment(), KodeinAware {
         Coroutines.io {
             viewModel.saveProduct(product)
         }
-        val action = HomeFragmentDirections.actionHomeFragmentToProductFragment()
-        this.findNavController().navigate(action)
+        if (product.is_store!!) {
+            val action = HomeFragmentDirections.actionHomeFragmentToProductFragment()
+            this.findNavController().navigate(action)
+        } else {
+            val action = HomeFragmentDirections.actionHomeFragmentToProductStoreFragment()
+            this.findNavController().navigate(action)
+        }
+
     }
 
     private fun setupRecyclerAdapter(){

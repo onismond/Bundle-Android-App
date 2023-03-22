@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.pietech.bundle.R
@@ -14,9 +17,8 @@ import com.pietech.bundle.databinding.FragmentProductBinding
 import com.pietech.bundle.ui.home.HomeActivity
 import com.pietech.bundle.ui.home.HomeViewModel
 import com.pietech.bundle.ui.home.HomeViewModelFactory
-import com.pietech.bundle.util.BaseFragment
-import com.pietech.bundle.util.Coroutines
-import com.pietech.bundle.util.snackbar
+import com.pietech.bundle.ui.home.home.HomeFragmentDirections
+import com.pietech.bundle.util.*
 import org.kodein.di.android.x.kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
@@ -29,8 +31,7 @@ class ProductFragment : BaseFragment(), KodeinAware {
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentProductBinding
     private lateinit var product: Product
-    private lateinit var buttonBuyNow: Button
-    private lateinit var buttonAddToCart: Button
+    private lateinit var buttonViewContact: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +40,11 @@ class ProductFragment : BaseFragment(), KodeinAware {
         // Inflate the layout for this fragment
         binding = FragmentProductBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this, factory)[(HomeViewModel::class.java)]
+        setup()
+        return binding.root
+    }
 
+    private fun setup(){
         val circularProgressDrawable = CircularProgressDrawable(requireActivity().applicationContext)
         circularProgressDrawable.strokeWidth = 5f
         circularProgressDrawable.centerRadius = 30f
@@ -57,31 +62,60 @@ class ProductFragment : BaseFragment(), KodeinAware {
                 .error(R.drawable.error_placeholder)
                 .skipMemoryCache(true) //for caching the image url in case phone is offline
                 .into(binding.imageViewMain)
+            setupRecyclerAdapter()
         }
-        buttonBuyNow = binding.buttonBuyNow
-        buttonAddToCart = binding.buttonAddToCart
-        buttonBuyNow.setOnClickListener {
-            buyNow(it)
+        buttonViewContact = binding.buttonViewContact
+        buttonViewContact.setOnClickListener {
+            viewContact(it)
         }
-        buttonAddToCart.setOnClickListener {
-            addToCart(it)
-        }
-        return binding.root
+
     }
 
-    private fun buyNow(view: View){
+    private fun setupRecyclerAdapter(){
         Coroutines.io {
-            viewModel.addToCart(product.toCart())
+            try {
+                val indexResponse = viewModel.getSimilarProducts(product.id!!)
+                if (indexResponse.isSuccessful!!) {
+                    val similarProductsAdapter = ProductSmallAdapter(indexResponse.products!!, requireActivity().applicationContext)
+                    activity?.runOnUiThread {
+                        binding.recyclerViewSimilar.apply {
+                            adapter = similarProductsAdapter.apply {
+                                onProductClicked = { product ->
+                                    productClicked(product)
+                                }
+                            }
+                            layoutManager = object: LinearLayoutManager(activity?.applicationContext) { override fun canScrollVertically() = false }
+                        }
+                    }
+                }
+            } catch (e: ApiException) {
+                activity?.runOnUiThread { binding.root.snackbar(e.message!!) }
+            } catch (e: NoInternetException) {
+                activity?.runOnUiThread { binding.root.snackbar(e.message!!) }
+            }
         }
-        val homeActivity = activity as HomeActivity
-        homeActivity.navigateToCart()
     }
 
-    private fun addToCart(view: View){
+    private fun productClicked(product: Product){
         Coroutines.io {
-            viewModel.addToCart(product.toCart())
+            viewModel.saveProduct(product)
         }
-        view.snackbar("Item added to Bundle successfully")
+        if (product.is_store!!) {
+            val action = HomeFragmentDirections.actionHomeFragmentToProductFragment()
+            this.findNavController().navigate(action)
+        } else {
+            val action = HomeFragmentDirections.actionHomeFragmentToProductStoreFragment()
+            this.findNavController().navigate(action)
+        }
+
+    }
+
+    private fun viewContact(view: View){
+//        Coroutines.io {
+//            viewModel.addToCart(product.toCart())
+//        }
+//        val homeActivity = activity as HomeActivity
+//        homeActivity.navigateToCart()
     }
 
 }

@@ -13,6 +13,9 @@ data class Product (
         var description: String? = null,
         var image: String? = null,
         var location: String? = null,
+        var owner_name: String? = null,
+        var owner_id: String? = null,
+        var is_store: Boolean? = null,
 ){
         @PrimaryKey(autoGenerate = false)
         var uid: Int = CURRENT_PRODUCT_ID
