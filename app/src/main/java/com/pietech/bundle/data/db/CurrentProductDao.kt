@@ -15,6 +15,6 @@ interface CurrentProductDao {
     fun upsert(product: Product): Long
 
     @Query("SELECT * FROM product WHERE uid = $CURRENT_PRODUCT_ID")
-    fun getproduct() : LiveData<Product>
+    fun getproduct() : Product
 
 }

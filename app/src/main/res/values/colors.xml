@@ -9,6 +9,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="highlight">?android:attr/colorControlHighlight</color>
     <color name="white">#FFFFFFFF</color>
     <color name="forgot_password">#756363</color>
     <color name="app_title">#DDFEFEFF</color>

@@ -14,17 +14,17 @@ import kotlinx.android.synthetic.main.item_product.view.text_view_location
 import kotlinx.android.synthetic.main.item_product.view.text_view_name
 
 class ProductAdapter(
-    private val products: MutableList<Product>,
+    private var products: MutableList<Product>,
     private val context: Context
 ): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
-    lateinit var onProductClicked: ((Product) -> Unit)
+    lateinit var onProductClicked: ((Product, pos: Int) -> Unit)
 
     inner class ProductViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 //        val text_view_name: TextView = itemView.text_view_name
         init {
             itemView.setOnClickListener{
-                onProductClicked.invoke(products[adapterPosition])
+                onProductClicked.invoke(products[adapterPosition], adapterPosition)
             }
         }
     }
@@ -52,6 +52,11 @@ class ProductAdapter(
             text_view_amount.text = curItem.amount
             text_view_location.text = curItem.location
         }
+    }
+
+    fun setProducts(items: MutableList<Product>) {
+        products = items
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

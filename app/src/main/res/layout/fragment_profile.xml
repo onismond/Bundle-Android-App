@@ -85,14 +85,14 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
             <TextView
-                android:id="@+id/text_view_my_products"
+                android:id="@+id/text_view_my_account"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="start|center"
                 android:background="?attr/selectableItemBackground"
-                android:text="   My Products   4"
+                android:text="   My Account"
                 android:textColor="@color/black"
                 android:textSize="19sp" />
 
@@ -123,26 +123,7 @@
                 android:background="?android:attr/listDivider" />
 
             <TextView
-                android:id="@+id/text_view_logout"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="start|center"
-                android:background="?attr/selectableItemBackground"
-                android:text="   Log out"
-                android:textColor="@color/black"
-                android:textSize="19sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="?android:attr/listDivider" />
-
-            <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/text_view_update_profile"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:clickable="true"
@@ -161,7 +142,7 @@
                 android:background="?android:attr/listDivider" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/text_view_change_avatar"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:clickable="true"
@@ -180,7 +161,7 @@
                 android:background="?android:attr/listDivider" />
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/text_view_change_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:clickable="true"
@@ -189,6 +170,24 @@
                 android:text="   Change Password"
                 android:textColor="@color/black"
                 android:background="?android:selectableItemBackground"
+                android:textSize="19sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="?android:attr/listDivider" />
+            <TextView
+                android:id="@+id/text_view_logout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center"
+                android:background="?attr/selectableItemBackground"
+                android:text="   Log out"
+                android:textColor="@color/black"
                 android:textSize="19sp" />
 
             <View

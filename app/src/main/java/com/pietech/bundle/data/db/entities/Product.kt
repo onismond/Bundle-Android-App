@@ -14,6 +14,8 @@ data class Product (
         var image: String? = null,
         var location: String? = null,
         var owner_name: String? = null,
+        var owner_image: String? = null,
+        var owner_contact: String? = null,
         var owner_id: String? = null,
         var is_store: Boolean? = null,
 ){

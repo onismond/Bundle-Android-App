@@ -9,9 +9,9 @@
         android:icon="@drawable/search"
         android:title="Search" />
     <item
-        android:id="@+id/newProductFragment"
+        android:id="@+id/productsFragment"
         android:icon="@drawable/new_product_icon"
-        android:title="New Product" />
+        android:title="My Products" />
     <item
         android:id="@+id/cartFragment"
         android:icon="@drawable/cart_icon"

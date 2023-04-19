@@ -1,14 +1,11 @@
 package com.pietech.bundle.ui.home
 
 import androidx.lifecycle.ViewModel
-import com.pietech.bundle.data.db.entities.Cart
-import com.pietech.bundle.data.db.entities.Order
-import com.pietech.bundle.data.db.entities.Product
-import com.pietech.bundle.data.db.entities.User
-import com.pietech.bundle.data.network.responses.OrderResponse
+import com.pietech.bundle.data.db.entities.*
 import com.pietech.bundle.data.repositories.HomeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
 
 class HomeViewModel(
     private val repository: HomeRepository
@@ -22,13 +19,82 @@ class HomeViewModel(
         repository.getSimilarProducts(product_id)
     }
 
+    suspend fun saveLoggedInUser(user: User) = repository.saveUser(user)
+
     fun getLoggedInUser() = repository.getUser()
 
+    fun logout() = repository.logout()
+
     fun getUserToken() = repository.getUserToken()
+
+    fun getAvatar() = repository.getAvatar()
+
+    suspend fun changeAvatar(image: MultipartBody.Part, data: String) = withContext(Dispatchers.IO){
+        repository.changeAvatar(image, data)
+    }
+
+    suspend fun changePassword(oldPassword: String, newPassword: String) = withContext(Dispatchers.IO){
+        repository.changePassword(getUserToken(), oldPassword, newPassword)
+    }
 
     fun getCurrentProduct() = repository.getCurrentProduct()
 
     fun saveProduct(product: Product) = repository.saveProduct(product)
+
+    fun saveSliderImage(sliderImage: SliderImage) = repository.saveSliderImage(sliderImage)
+
+    fun getSliderImages() = repository.getSliderImages()
+
+    fun saveBottomAd(bottomAds: BottomAd) = repository.saveBottomAd(bottomAds)
+
+    fun getBottomAds() = repository.getBottomAds()
+
+    fun saveTopAd(topAds: TopAd) = repository.saveTopAd(topAds)
+
+    fun getTopAds() = repository.getTopAds()
+
+    fun saveCategory(category: Category) = repository.saveCategory(category)
+
+    fun getCategory(categoryId: String) = repository.getCategory(categoryId)
+
+    fun getCategories() = repository.getCategories()
+
+    suspend fun loadCategories() = withContext(Dispatchers.IO){
+        repository.loadCategories(getUserToken())
+    }
+
+    suspend fun getCategoryProduct(categoryId: String) = withContext(Dispatchers.IO){
+        repository.getCategoryProduct(getUserToken(), categoryId)
+    }
+
+    suspend fun getSubCategoryProducts(subCategoryId: String) = withContext(Dispatchers.IO){
+        repository.getSubCategoryProducts(subCategoryId)
+    }
+
+    fun getSubCategory(subCategoryId: String) = repository.getSubCategory(subCategoryId)
+
+    fun saveSubCategory(subCategory: SubCategory) = repository.saveSubCategory(subCategory)
+
+    fun getSubCategories(category_name: String) = repository.getSubCategories(category_name)
+
+    suspend fun loadSubCategories() = withContext(Dispatchers.IO){
+        repository.loadSubCategories(getUserToken())
+    }
+
+    fun saveSchool(school: School) = repository.saveSchool(school)
+
+    fun getSchools() = repository.getSchools()
+
+    fun getSchoolId(name: String) = repository.getSchoolId(name)
+
+    suspend fun loadSchools() = withContext(Dispatchers.IO){
+        repository.loadSchools()
+    }
+
+    suspend fun updateProfile(name: String, userName: String, contact: String, school: Int) = withContext(Dispatchers.IO){
+        repository.updateProfile(getUserToken(), name, userName, contact, school)
+    }
+
 //    Cart
     suspend fun addToCart(cart: Cart) = withContext(Dispatchers.IO){
         repository.addToCart(cart)
@@ -59,6 +125,14 @@ class HomeViewModel(
     suspend fun submitOrder(cart: String) = repository.submitOrder(getUserToken(), cart)
 
     suspend fun loadOrders() = repository.loadOrders(getUserToken())
+
+    fun saveUserProduct(userProduct: UserProduct) = repository.saveUserProduct(userProduct)
+
+    fun getUserProducts() = repository.getUserProducts()
+
+    suspend fun geUserProducts() = withContext(Dispatchers.IO){
+        repository.getUserProducts(getUserToken())
+    }
 
 
 

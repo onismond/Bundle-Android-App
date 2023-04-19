@@ -46,3 +46,16 @@ fun ViewPager2.previousPage(smoothScroll: Boolean = true): Boolean {
     //can't move to previous page, maybe current page is first or adapter not set.
     return false
 }
+
+fun ViewPager2.scroll(smoothScroll: Boolean = true): Boolean {
+    if ((currentItem + 1) < (adapter?.itemCount ?: 0)) {
+        setCurrentItem(currentItem + 1, smoothScroll)
+//        if ((currentItem + 1) == (adapter?.itemCount ?: 0)) {
+//            return false
+//        }
+        return true
+    }
+    setCurrentItem(0, smoothScroll)
+    //can't move to next page, maybe current page is last or adapter not set.
+    return false
+}

@@ -1,6 +1,7 @@
 package com.pietech.bundle.ui.home.product
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,7 @@ class ProductFragment : BaseFragment(), KodeinAware {
     private lateinit var binding: FragmentProductBinding
     private lateinit var product: Product
     private lateinit var buttonViewContact: Button
+    var savedProduct: Product? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +42,7 @@ class ProductFragment : BaseFragment(), KodeinAware {
         // Inflate the layout for this fragment
         binding = FragmentProductBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this, factory)[(HomeViewModel::class.java)]
+
         setup()
         return binding.root
     }
@@ -50,33 +53,42 @@ class ProductFragment : BaseFragment(), KodeinAware {
         circularProgressDrawable.centerRadius = 30f
         circularProgressDrawable.start()
 
-        viewModel.getCurrentProduct().observe(viewLifecycleOwner) { item ->
-            product = item
-            binding.textViewProductName.text = item.name
-            binding.textViewAmount.text = item.amount
-            binding.textViewLocation.text = item.location
-            binding.textViewDescription.text = item.description
-            Glide.with(requireActivity().applicationContext)
-                .load(item.image)
-                .placeholder(circularProgressDrawable)
-                .error(R.drawable.error_placeholder)
-                .skipMemoryCache(true) //for caching the image url in case phone is offline
-                .into(binding.imageViewMain)
-            setupRecyclerAdapter()
+        Coroutines.io {
+            if (savedProduct == null) {
+                product = viewModel.getCurrentProduct() as Product
+                savedProduct = product
+            } else {
+                product = savedProduct as Product
+            }
+            activity?.runOnUiThread {
+                binding.textViewProductName.text = product.name
+                binding.textViewAmount.text = product.amount
+                binding.textViewLocation.text = product.location
+                binding.textViewDescription.text = product.description
+                Glide.with(requireActivity().applicationContext)
+                    .load(product.image)
+                    .placeholder(circularProgressDrawable)
+                    .error(R.drawable.error_placeholder)
+                    .skipMemoryCache(true) //for caching the image url in case phone is offline
+                    .into(binding.imageViewMain)
+                setupRecyclerAdapter()
+
+                buttonViewContact = binding.buttonViewContact
+                buttonViewContact.setOnClickListener {
+                    viewContact(it)
+                }
+            }
         }
-        buttonViewContact = binding.buttonViewContact
-        buttonViewContact.setOnClickListener {
-            viewContact(it)
-        }
+
 
     }
 
     private fun setupRecyclerAdapter(){
         Coroutines.io {
             try {
-                val indexResponse = viewModel.getSimilarProducts(product.id!!)
-                if (indexResponse.isSuccessful!!) {
-                    val similarProductsAdapter = ProductSmallAdapter(indexResponse.products!!, requireActivity().applicationContext)
+                val response = viewModel.getSimilarProducts(product.id!!)
+                if (response.isSuccessful!!) {
+                    val similarProductsAdapter = ProductSmallAdapter(response.products!!, activity?.applicationContext!!)
                     activity?.runOnUiThread {
                         binding.recyclerViewSimilar.apply {
                             adapter = similarProductsAdapter.apply {
@@ -101,21 +113,25 @@ class ProductFragment : BaseFragment(), KodeinAware {
             viewModel.saveProduct(product)
         }
         if (product.is_store!!) {
-            val action = HomeFragmentDirections.actionHomeFragmentToProductFragment()
+            val action = ProductFragmentDirections.actionProductFragmentToProductStoreFragment()
             this.findNavController().navigate(action)
         } else {
-            val action = HomeFragmentDirections.actionHomeFragmentToProductStoreFragment()
+            val action = ProductFragmentDirections.actionProductFragmentSelf()
             this.findNavController().navigate(action)
         }
 
     }
 
     private fun viewContact(view: View){
-//        Coroutines.io {
-//            viewModel.addToCart(product.toCart())
-//        }
-//        val homeActivity = activity as HomeActivity
-//        homeActivity.navigateToCart()
+        binding.buttonViewContact.text = product.owner_contact
+    }
+
+    companion object {
+        var listState: Parcelable? = null
+        val LIST_STATE_KEY = "list_state"
+//        var savedProduct: Product? = null
+        var savedProducts: MutableList<Product>? = null
+        var itemPosition: Int = 0
     }
 
 }
