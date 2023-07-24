@@ -7,19 +7,22 @@ plugins {
     id "androidx.navigation.safeargs"
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
-
 android {
-    namespace 'com.pietech.bundle'
+    namespace 'com.bundlegh.bundle'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.pietech.bundle"
-        minSdk 24
+        applicationId "com.bundlegh.bundle"
+        minSdk 21
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
-
+        versionCode 101
+        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -47,7 +50,9 @@ android {
 dependencies {
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.gms:play-services-maps:18.0.2'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation 'com.google.android.libraries.places:places:3.1.0'
     def lifecycle_version = "2.6.0-alpha03"
     // def arch_version = "2.1.0"
 
@@ -104,6 +109,12 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    // KTX for the Maps SDK for Android
+    implementation 'com.google.maps.android:maps-ktx:3.2.1'
+
+    // (Optional) KTX for the Maps SDK for Android Utility Library
+    implementation 'com.google.maps.android:maps-utils-ktx:3.2.1'
 
 }
 

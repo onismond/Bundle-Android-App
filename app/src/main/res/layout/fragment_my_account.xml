@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.my_account.MyAccountFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Account Type"
+            android:textColor="@color/primary"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_main"
+            android:layout_width="0dp"
+            android:layout_height="147dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/container_primary_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView24">
+
+            <TextView
+                android:id="@+id/text_view_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="13dp"
+                android:text="Basic"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" GHS "
+                android:textSize="19sp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_view_amount"
+                app:layout_constraintEnd_toStartOf="@+id/text_view_amount"
+                app:layout_constraintTop_toTopOf="@+id/text_view_amount" />
+
+            <TextView
+                android:id="@+id/text_view_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="20dp"
+                android:text="10"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="You can upload  "
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="@+id/text_view_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_name" />
+
+            <TextView
+                android:id="@+id/text_view_product_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView28"
+                app:layout_constraintStart_toEndOf="@+id/textView28"
+                app:layout_constraintTop_toTopOf="@+id/textView28" />
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  products"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_view_product_count"
+                app:layout_constraintStart_toEndOf="@+id/text_view_product_count"
+                app:layout_constraintTop_toTopOf="@+id/text_view_product_count" />
+
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Current products:  "
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="@+id/textView28"
+                app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+            <TextView
+                android:id="@+id/text_view_products_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView34"
+                app:layout_constraintStart_toEndOf="@+id/textView34"
+                app:layout_constraintTop_toTopOf="@+id/textView34" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/container_primary_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="@id/constraintLayout4"
+            app:layout_constraintEnd_toStartOf="@id/constraintLayout4"
+            app:layout_constraintStart_toStartOf="@+id/constraint_main"
+            app:layout_constraintTop_toBottomOf="@+id/constraint_main">
+
+            <TextView
+                android:id="@+id/textView39"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:text="Last Renewal"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_last_renewal" />
+
+            <TextView
+                android:id="@+id/text_view_last_renewal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="10th May, 2023"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/container_primary_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout3"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_main"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
+            app:layout_constraintTop_toBottomOf="@+id/constraint_main">
+
+            <TextView
+                android:id="@+id/textView41"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:text="Next Renewal"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_next_renewal" />
+
+            <TextView
+                android:id="@+id/text_view_next_renewal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="10th May, 2023"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/buttonRenewAccount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Renew Now"
+            android:textColor="@color/primary"
+            android:background="@drawable/btn_secondary_ripple"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout4"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_products"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonRenewAccount" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</ScrollView>

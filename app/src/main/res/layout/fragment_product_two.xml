@@ -11,6 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="7dp"
+            android:text="Category"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/spinner_categories"
+            app:layout_constraintStart_toStartOf="@+id/spinner_categories" />
+
         <Spinner
             android:id="@+id/spinner_categories"
             android:layout_width="0dp"
@@ -18,10 +29,23 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="200dp"
             android:layout_marginEnd="50dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            android:spinnerMode="dropdown"
             android:background="@drawable/edit_text_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="7dp"
+            android:text="Sub Category"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@id/spinner_sub_categories"
+            app:layout_constraintStart_toStartOf="@id/spinner_sub_categories" />
 
         <Spinner
             android:id="@+id/spinner_sub_categories"
@@ -30,10 +54,13 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="50dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            android:spinnerMode="dropdown"
             android:background="@drawable/edit_text_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_categories" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

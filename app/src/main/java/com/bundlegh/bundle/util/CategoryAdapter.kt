@@ -1,0 +1,66 @@
+package com.bundlegh.bundle.util
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bundlegh.bundle.R
+import com.bundlegh.bundle.data.db.entities.BottomAd
+import com.bundlegh.bundle.data.db.entities.Category
+import kotlinx.android.synthetic.main.item_category.view.*
+
+class CategoryAdapter(
+    private var categories: MutableList<Category>,
+    private var ids: MutableList<String>,
+    private val context: Context
+): RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+
+    lateinit var onCategoryClicked: ((Category) -> Unit)
+
+    inner class CategoryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        init {
+            itemView.cat2.setOnClickListener{
+                onCategoryClicked.invoke(categories[adapterPosition])
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
+        return CategoryViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_category,
+                parent,
+                false
+            )
+        )
+    }
+
+    fun addCategory(category: Category, id: String) {
+        categories.add(category)
+        ids.add(id)
+        notifyItemInserted(categories.indexOf(category))
+    }
+
+    fun idExists(id: String): Boolean{
+        if (id in ids)
+            return true
+        return false
+    }
+
+    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
+        val curItem = categories[position]
+        Glide.with(context)
+            .load(curItem.image)
+            .placeholder(R.drawable.loading_placeholder)
+            .error(R.drawable.error_placeholder)
+            .skipMemoryCache(true) //for caching the image url in case phone is offline
+            .into(holder.itemView.image_view)
+        holder.itemView.text_view.text = curItem.name
+    }
+
+    override fun getItemCount(): Int {
+        return categories.size
+    }
+}

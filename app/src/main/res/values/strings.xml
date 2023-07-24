@@ -3,4 +3,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="delivery_info_notice">A delivery guy will contact you with the delivery fee and confirm your location</string>
+    <string name="maps_api_key">AIzaSyA2JmnQv7clr59b7aO4rt9clmPUQvMD1ZQ</string>
 </resources>

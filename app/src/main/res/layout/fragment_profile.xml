@@ -32,7 +32,6 @@
             android:layout_marginStart="30dp"
             android:background="@drawable/avatar_background"
             android:outlineProvider="background"
-            android:src="@drawable/profile_pic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,10 +55,10 @@
                 android:textSize="28sp" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/text_view_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Onismond"
+                android:text=""
                 android:textSize="28sp" />
         </LinearLayout>
 
@@ -107,11 +106,30 @@
                 android:id="@+id/text_view_orders"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="start|center"
+                android:text="   Orders   "
+                android:textColor="@color/black"
+                android:textSize="19sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/text_view_upgrade_account"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:background="?attr/selectableItemBackground"
-                android:text="   Orders   3"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center"
+                android:text="   Upgrade Account   "
                 android:textColor="@color/black"
                 android:textSize="19sp" />
 
@@ -201,8 +219,8 @@
                 android:id="@+id/switch1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:clickable="true"
-                android:focusable="true"
+                android:clickable="false"
+                android:focusable="false"
                 android:background="?android:selectableItemBackground"
                 android:text="   Dark Mode"
                 android:textSize="19sp" />

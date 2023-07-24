@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.pietech.bundle.ui.home.home.HomeFragment"
+        android:name="com.bundlegh.bundle.ui.home.home.HomeFragment"
         android:label=" Bundle"
         tools:layout="@layout/fragment_home">
         <action
@@ -23,15 +23,18 @@
             android:name="category_id"
             app:argType="string"
             android:defaultValue='""' />
+        <action
+            android:id="@+id/action_homeFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_storeFragment"
+            app:destination="@id/storeFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.pietech.bundle.ui.home.profile.ProfileFragment"
+        android:name="com.bundlegh.bundle.ui.home.profile.ProfileFragment"
         android:label=" Profile"
         tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profileFragment_to_myProductsFragment"
-            app:destination="@id/myProductsFragment" />
         <action
             android:id="@+id/action_profileFragment_to_ordersFragment"
             app:destination="@id/ordersFragment" />
@@ -44,30 +47,39 @@
         <action
             android:id="@+id/action_profileFragment_to_updateProfileFragment"
             app:destination="@id/updateProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myAccountFragment"
+            app:destination="@id/myAccountFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_upgradeAccountFragment"
+            app:destination="@id/upgradeAccountFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.pietech.bundle.ui.home.cart.CartFragment"
+        android:name="com.bundlegh.bundle.ui.home.cart.CartFragment"
         android:label=" Cart"
         tools:layout="@layout/fragment_cart" >
         <action
             android:id="@+id/action_cartFragment_to_checkoutFragment"
             app:destination="@id/checkoutFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_deliveryLocationFragment"
+            app:destination="@id/deliveryLocationFragment" />
     </fragment>
     <fragment
         android:id="@+id/newProductFragment"
-        android:name="com.pietech.bundle.ui.home.new_product.NewProductFragment"
+        android:name="com.bundlegh.bundle.ui.home.new_product.NewProductFragment"
         android:label="New Product"
         tools:layout="@layout/fragment_new_product" />
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.pietech.bundle.ui.home.category.CategoryFragment"
-        android:label=" Category"
+        android:name="com.bundlegh.bundle.ui.home.category.CategoryFragment"
+        android:label="Category"
         tools:layout="@layout/fragment_category">
         <argument
             android:name="category_id"
-            app:argType="string"
-            android:defaultValue='""' />
+            android:defaultValue='""'
+            app:argType="string" />
         <action
             android:id="@+id/action_categoryFragment_to_productStoreFragment"
             app:destination="@id/productStoreFragment" />
@@ -80,7 +92,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.pietech.bundle.ui.home.search.SearchFragment"
+        android:name="com.bundlegh.bundle.ui.home.search.SearchFragment"
         android:label=" Search"
         tools:layout="@layout/fragment_search">
         <action
@@ -92,7 +104,7 @@
     </fragment>
     <fragment
         android:id="@+id/productFragment"
-        android:name="com.pietech.bundle.ui.home.product.ProductFragment"
+        android:name="com.bundlegh.bundle.ui.home.product.ProductFragment"
         android:label="Product"
         tools:layout="@layout/fragment_product" >
         <action
@@ -101,25 +113,23 @@
         <action
             android:id="@+id/action_productFragment_self"
             app:destination="@id/productFragment" />
+        <action
+            android:id="@+id/action_productFragment_to_shopFragment"
+            app:destination="@id/shopFragment" />
     </fragment>
     <fragment
-        android:id="@+id/myProductsFragment"
-        android:name="com.pietech.bundle.ui.home.my_products.MyProductsFragment"
-        android:label="My Products"
-        tools:layout="@layout/fragment_my_products" />
-    <fragment
         android:id="@+id/ordersFragment"
-        android:name="com.pietech.bundle.ui.home.orders.OrdersFragment"
+        android:name="com.bundlegh.bundle.ui.home.orders.OrdersFragment"
         android:label="Orders"
         tools:layout="@layout/fragment_orders" />
     <fragment
         android:id="@+id/checkoutFragment"
-        android:name="com.pietech.bundle.ui.home.checkout.CheckoutFragment"
+        android:name="com.bundlegh.bundle.ui.home.checkout.CheckoutFragment"
         android:label="Checkout"
         tools:layout="@layout/fragment_checkout" />
     <fragment
         android:id="@+id/productStoreFragment"
-        android:name="com.pietech.bundle.ui.home.product_store.ProductStoreFragment"
+        android:name="com.bundlegh.bundle.ui.home.product_store.ProductStoreFragment"
         android:label="Store Product"
         tools:layout="@layout/fragment_product_store" >
         <action
@@ -128,36 +138,45 @@
         <action
             android:id="@+id/action_productStoreFragment_self"
             app:destination="@id/productStoreFragment" />
+        <action
+            android:id="@+id/action_productStoreFragment_to_storeFragment"
+            app:destination="@id/storeFragment" />
     </fragment>
     <fragment
         android:id="@+id/productsFragment"
-        android:name="com.pietech.bundle.ui.home.products.ProductsFragment"
+        android:name="com.bundlegh.bundle.ui.home.products.ProductsFragment"
         android:label="My Products"
         tools:layout="@layout/fragment_products">
         <action
             android:id="@+id/action_productsFragment_to_newProductFragment"
             app:destination="@id/newProductFragment" />
+        <action
+            android:id="@+id/action_productsFragment_to_updateProductFragment"
+            app:destination="@id/updateProductFragment" />
+        <action
+            android:id="@+id/action_productsFragment_to_newProductActivity"
+            app:destination="@id/newProductActivity" />
     </fragment>
     <fragment
         android:id="@+id/changeAvatarFragment"
-        android:name="com.pietech.bundle.ui.home.profile.change_avatar.ChangeAvatarFragment"
+        android:name="com.bundlegh.bundle.ui.home.profile.change_avatar.ChangeAvatarFragment"
         android:label="Change Profile Picture"
         tools:layout="@layout/fragment_change_avatar" />
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.pietech.bundle.ui.home.profile.change_password.ChangePasswordFragment"
+        android:name="com.bundlegh.bundle.ui.home.profile.change_password.ChangePasswordFragment"
         android:label="Change Password"
         tools:layout="@layout/fragment_change_password" />
     <fragment
         android:id="@+id/updateProfileFragment"
-        android:name="com.pietech.bundle.ui.home.profile.update_profile.UpdateProfileFragment"
+        android:name="com.bundlegh.bundle.ui.home.profile.update_profile.UpdateProfileFragment"
         android:label="Update Profile"
         tools:layout="@layout/fragment_update_profile" />
     <fragment
         android:id="@+id/subCategoryFragment"
-        android:name="com.pietech.bundle.ui.home.category.sub_category.SubCategoryFragment"
-        android:label="fragment_sub_category"
-        tools:layout="@layout/fragment_sub_category" >
+        android:name="com.bundlegh.bundle.ui.home.category.sub_category.SubCategoryFragment"
+        android:label="Sub Category"
+        tools:layout="@layout/fragment_sub_category">
         <action
             android:id="@+id/action_subCategoryFragment_to_productStoreFragment"
             app:destination="@id/productStoreFragment" />
@@ -165,5 +184,75 @@
             android:id="@+id/action_subCategoryFragment_to_productFragment"
             app:destination="@id/productFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/deliveryLocationFragment"
+        android:name="com.bundlegh.bundle.ui.home.delivery_location.DeliveryLocationFragment"
+        android:label="Delivery Location"
+        tools:layout="@layout/fragment_delivery_location" >
+        <action
+            android:id="@+id/action_deliveryLocationFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeFragment"
+        android:name="com.bundlegh.bundle.ui.home.store.StoreFragment"
+        android:label="Store"
+        tools:layout="@layout/fragment_store">
+        <action
+            android:id="@+id/action_storeFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+        <action
+            android:id="@+id/action_storeFragment_to_productStoreFragment"
+            app:destination="@id/productStoreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="com.bundlegh.bundle.ui.home.shop.ShopFragment"
+        android:label="Shop"
+        tools:layout="@layout/fragment_shop">
+        <action
+            android:id="@+id/action_shopFragment_to_productStoreFragment"
+            app:destination="@id/productStoreFragment" />
+        <action
+            android:id="@+id/action_shopFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myAccountFragment"
+        android:name="com.bundlegh.bundle.ui.home.my_account.MyAccountFragment"
+        android:label="My Account"
+        tools:layout="@layout/fragment_my_account" >
+        <action
+            android:id="@+id/action_myAccountFragment_to_renewAccountFragment"
+            app:destination="@id/renewAccountFragment" />
+        <action
+            android:id="@+id/action_myAccountFragment_to_upgradeAccountFragment"
+            app:destination="@id/upgradeAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/renewAccountFragment"
+        android:name="com.bundlegh.bundle.ui.home.renew_account.RenewAccountFragment"
+        android:label="Renew Subscription"
+        tools:layout="@layout/fragment_renew_account" />
+    <fragment
+        android:id="@+id/upgradeAccountFragment"
+        android:name="com.bundlegh.bundle.ui.home.upgrade_account.UpgradeAccountFragment"
+        android:label="Upgrade Account"
+        tools:layout="@layout/fragment_upgrade_account" />
+    <fragment
+        android:id="@+id/updateProductFragment"
+        android:name="com.bundlegh.bundle.ui.home.update_product.UpdateProductFragment"
+        android:label="Update Product"
+        tools:layout="@layout/fragment_update_product" />
+    <activity
+        android:id="@+id/newProductActivity"
+        android:name="com.bundlegh.bundle.ui.new_product.NewProductActivity"
+        android:label="activity_new_product"
+        tools:layout="@layout/activity_new_product" />
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.bundlegh.bundle.ui.home.notifications.NotificationsFragment"
+        android:label="Notifications"
+        tools:layout="@layout/fragment_notifications" />
 
 </navigation>

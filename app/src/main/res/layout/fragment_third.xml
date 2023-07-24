@@ -12,7 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:layout_marginTop="80dp"
-        android:src="@drawable/avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,6 +36,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="5dp"
         android:text="Register"
+        android:textColor="@color/primary"
         android:background="@drawable/btn_secondary_ripple"
         app:layout_constraintEnd_toStartOf="@+id/button_login"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,6 +50,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="5dp"
         android:text="Login"
+        android:textColor="@color/white"
         android:background="@drawable/btn_primary_ripple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

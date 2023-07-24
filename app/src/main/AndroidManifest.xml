@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest package="com.bundlegh.bundle" 
+ 	 xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
 
     <application
         android:name=".BundleApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_normal"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon_normal"
         android:supportsRtl="true"
         android:theme="@style/Theme.Bundle"
-        android:usesCleartextTraffic="true"
+        android:usesCleartextTraffic="false"
         tools:targetApi="31">
 
         <!--
@@ -31,7 +36,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_API_KEY" />
+            android:value="${MAPS_API_KEY}" />
 
         <activity
             android:name=".ui.maps.MapsActivity"
@@ -88,7 +93,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.pietech.bundle.fileprovider"
+            android:authorities="com.bundlegh.bundle.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.update_product.UpdateProductFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerImageSlider"
+                android:layout_width="0dp"
+                android:layout_height="400dp"
+                android:background="@drawable/recyclerview_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/viewPagerImageSlider"
+                app:layout_constraintEnd_toEndOf="@+id/viewPagerImageSlider"
+                app:layout_constraintStart_toStartOf="@+id/viewPagerImageSlider"
+                app:tabBackground="@drawable/tab_selector"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp" />
+
+            <EditText
+                android:id="@+id/edit_text_name"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:focusedByDefault="true"
+                android:hint="Product Name"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewPagerImageSlider" />
+
+            <EditText
+                android:id="@+id/edit_text_amount"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:focusedByDefault="true"
+                android:hint="Amount"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toEndOf="@+id/edit_text_name"
+                app:layout_constraintStart_toStartOf="@+id/edit_text_name"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_name" />
+
+
+            <EditText
+                android:id="@+id/edit_text_description"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Description of product"
+                android:inputType="textMultiLine"
+                android:paddingTop="7dp"
+                app:layout_constraintEnd_toEndOf="@+id/edit_text_name"
+                app:layout_constraintStart_toStartOf="@+id/edit_text_name"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_amount" />
+
+            <Button
+                android:id="@+id/button_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="80dp"
+                android:width="100dp"
+                android:background="@drawable/btn_secondary_ripple"
+                android:text="Cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/edit_text_name"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_description" />
+
+            <Button
+                android:id="@+id/button_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="100dp"
+                android:text="Update"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_primary_ripple"
+                app:layout_constraintBottom_toBottomOf="@+id/button_cancel"
+                app:layout_constraintEnd_toEndOf="@+id/edit_text_name"
+                app:layout_constraintTop_toTopOf="@+id/button_cancel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        android:background="?android:attr/colorControlHighlight"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/container_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/progressBarText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Loading..."
+                app:layout_constraintEnd_toEndOf="@+id/progressBar"
+                app:layout_constraintStart_toStartOf="@+id/progressBar"
+                app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

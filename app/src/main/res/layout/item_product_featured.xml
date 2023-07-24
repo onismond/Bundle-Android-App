@@ -39,6 +39,7 @@
         android:layout_marginStart="10dp"
         android:text="Product Name"
         android:textSize="17sp"
+        android:textColor="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_view_container"
         app:layout_constraintTop_toTopOf="@+id/image_view_container" />
