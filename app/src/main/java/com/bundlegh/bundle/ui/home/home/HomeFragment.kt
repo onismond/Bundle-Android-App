@@ -29,6 +29,7 @@ import com.bundlegh.bundle.util.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
+import java.net.SocketTimeoutException
 
 class HomeFragment : BaseFragment(), KodeinAware {
 
@@ -123,7 +124,7 @@ class HomeFragment : BaseFragment(), KodeinAware {
             }
         }
         imageSliderAdapter.onImageSliderClicked = {productId, storeId ->
-//            binding.root.snackbar("$productId, $storeId")
+            imageAdClicked(productId, storeId)
         }
         binding.viewPagerImageSlider.apply {
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -131,6 +132,41 @@ class HomeFragment : BaseFragment(), KodeinAware {
         }
         TabLayoutMediator(binding.tabLayout, binding.viewPagerImageSlider) { tab, position ->
         }.attach()
+    }
+
+    private fun imageAdClicked(productId: String?, storeId: String?) {
+        (activity as? HomeActivity)?.showProgress()
+        Coroutines.io {
+            try {
+                activity?.runOnUiThread { (activity as? HomeActivity)?.showProgress() }
+                if (productId?.toInt() != 0){
+                    val productResponse = viewModel.getProduct(productId ?: "")
+                    if (productResponse.isSuccessful!!) {
+                        activity?.runOnUiThread { (activity as? HomeActivity)?.hideProgress() }
+                        productClicked(productResponse.product)
+                    }
+                } else if (storeId?.toInt() != 0){
+                    val storeResponse = viewModel.getStore(storeId ?: "")
+                    if (storeResponse.isSuccessful!!) {
+                        activity?.runOnUiThread { (activity as? HomeActivity)?.hideProgress() }
+                        storeClicked(storeResponse.store)
+                    }
+                }
+                activity?.runOnUiThread { (activity as? HomeActivity)?.hideProgress() }
+            } catch (e: ApiException) {
+                activity?.runOnUiThread { (activity as? HomeActivity)?.hideProgress() }
+                activity?.runOnUiThread { binding.root.snackbar(e.message!!) }
+            } catch (e: NoInternetException) {
+                activity?.runOnUiThread { (activity as? HomeActivity)?.hideProgress() }
+                activity?.runOnUiThread { binding.root.snackbar(e.message!!) }
+            } catch (e: SocketTimeoutException) {
+                activity?.runOnUiThread { (activity as? HomeActivity)?.hideProgress() }
+                activity?.runOnUiThread { binding.root.snackbar("Please check your internet connection") }
+            } catch (e: Exception) {
+                activity?.runOnUiThread { (activity as? HomeActivity)?.hideProgress() }
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun setupBottomAds() {
@@ -149,7 +185,7 @@ class HomeFragment : BaseFragment(), KodeinAware {
             adapter = bottomAdsAdapter
         }
         bottomAdsAdapter.onBottomAdClicked = { bottomAd ->
-//            binding.root.snackbar(bottomAd.id)
+            imageAdClicked(bottomAd.product_id, bottomAd.store_id)
         }
     }
 
@@ -264,19 +300,20 @@ class HomeFragment : BaseFragment(), KodeinAware {
                         viewModel.saveSliderImage(sliderImage)
                     for (bottomAd in indexResponse.bottom_ads)
                         viewModel.saveBottomAd(bottomAd)
+                    activity?.runOnUiThread { (activity as HomeActivity).checkAppUpdates(indexResponse.latest_version) }
 
                 } else {
                     activity?.runOnUiThread { showError() }
                 }
             } catch (e: ApiException) {
                 activity?.runOnUiThread { showError() }
-//                activity?.runOnUiThread { binding.root.snackbar(e.message!!) }
+                activity?.runOnUiThread { binding.root.snackbar(e.message!!) }
             } catch (e: NoInternetException) {
                 activity?.runOnUiThread { showError() }
-//                activity?.runOnUiThread { binding.root.snackbar(e.message!!) }
+                activity?.runOnUiThread { binding.root.snackbar(e.message!!) }
             } catch (e: Exception) {
                 activity?.runOnUiThread { showError() }
-//                activity?.runOnUiThread { binding.root.snackbar("Sorry, an error occurred") }
+                activity?.runOnUiThread { binding.root.snackbar(e.message!!) }
             }
         }
     }

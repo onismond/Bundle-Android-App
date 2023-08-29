@@ -45,13 +45,12 @@ class SearchFragment : BaseFragment(), KodeinAware {
     private lateinit var recyclerViewSearch: RecyclerView
     private lateinit var searchAdapter: ProductAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.e("Error", "On create view")
-        println(listState)
+//        Log.e("Error", "On create view")
+//        println(listState)
         binding = FragmentSearchBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
         editTextSearch = binding.editTextSearch
@@ -72,46 +71,57 @@ class SearchFragment : BaseFragment(), KodeinAware {
         }
         setup()
         setupRecyclerView()
+        val keyword = preference.getSearchKeyword()
+        keyword?.also {
+            binding.editTextSearch.setQuery(keyword, true)
+//            binding.textViewKeyword.text = it
+//            search(it)
+            preference.removeSearchKeyword()
+        }
+        restore()
+
         return binding.root
+    }
+
+    private fun restore() {
+        Log.e("Error", "On resume")
+        println(listState)
+
+        if (listState != null) {
+//            Log.e("Error", binding.recyclerViewSearch.layoutManager.toString())
+            hideProgress()
+            binding.recyclerViewSearch.layoutManager?.onRestoreInstanceState(listState)
+            binding.textViewKeyword.text = _keyword
+        } else {
+            search("")
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         Log.e("Error", "On save instance state")
         listState = binding.recyclerViewSearch.layoutManager?.onSaveInstanceState()
-        outState.putParcelable(LIST_STATE_KEY, listState)
+//        outState.putParcelable(LIST_STATE_KEY, listState)
+//        _keyword = binding.textViewKeyword.text.toString()
         println(listState)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        Log.e("Error", "On view state restored")
-        println(listState)
-//        if(listState != null)
-//            listState = savedInstanceState?.getParcelable(LIST_STATE_KEY)
+//        Log.e("Error", "On view state restored")
+//        println(listState)
+////        if(listState != null)
+////            listState = savedInstanceState?.getParcelable(LIST_STATE_KEY)
+//        if (listState != null) {
+//            Log.e("Error", binding.recyclerViewSearch.layoutManager.toString())
+//            binding.recyclerViewSearch.layoutManager?.onRestoreInstanceState(listState)
+//            hideProgress()
+//        }
     }
 
     override fun onResume() {
         super.onResume()
-        Log.e("Error", "On resume")
-        println(listState)
-        val keyword = preference.getSearchKeyword()
-//        keyword?.also {
-//
-//        }
-        if (keyword != null) {
-            binding.editTextSearch.setQuery(keyword, true)
-//            binding.textViewKeyword.text = it
-//            search(it)
-            preference.removeSearchKeyword()
-        }
-        else if (listState != null) {
-            Log.e("Error", binding.recyclerViewSearch.layoutManager.toString())
-            binding.recyclerViewSearch.layoutManager?.onRestoreInstanceState(listState)
-            hideProgress()
-        } else {
-            search("")
-        }
+//        restore()
     }
 
     override fun onDestroy() {
@@ -122,22 +132,26 @@ class SearchFragment : BaseFragment(), KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.e("Error", "On view created")
-        println(listState)
+//        println(listState)
 //        search(binding.editTextSearch.query.toString())
+
     }
 
     private fun setupRecyclerView() {
         if (savedProducts != null) {
             searchAdapter.setProducts(savedProducts!!)
-            Coroutines.main {
-                repeat(2) {
-                    delay(2000)
-                    activity?.runOnUiThread{
-                        (binding.recyclerViewSearch.layoutManager as GridLayoutManager).scrollToPosition(itemPosition)
-                        Log.e("Error", "Scrolled $it times $itemPosition")
-                    }
-                }
-            }
+        if (_keyword.isNotEmpty())
+            binding.textViewKeyword.text = _keyword
+//            Coroutines.main {
+//                repeat(2) {
+//                    delay(2000)
+//                    activity?.runOnUiThread{
+//                        (binding.recyclerViewSearch.layoutManager as GridLayoutManager).scrollToPosition(itemPosition)
+//                        Log.e("Error", "Scrolled $it times $itemPosition")
+//                    }
+//                }
+//            }
+
 //            activity?.runOnUiThread {
 //                recyclerViewSearch.adapter = searchAdapter.apply {
 //                    onProductClicked = { product, pos ->
@@ -151,7 +165,9 @@ class SearchFragment : BaseFragment(), KodeinAware {
 ////                gridLayoutManager.setTargetStartPos(itemPosition, 1)
 //            }
         }
-    }private fun setup() {
+    }
+
+    private fun setup() {
         searchAdapter = ProductAdapter(mutableListOf(), requireActivity().applicationContext)
         recyclerViewSearch.apply {
             adapter = searchAdapter.apply {
@@ -161,6 +177,7 @@ class SearchFragment : BaseFragment(), KodeinAware {
             }
             layoutManager = object: GridLayoutManager(activity?.applicationContext, 2) { override fun canScrollVertically() = false }
         }
+
 //        binding.textViewKeyword.text = keyword
 
     }
@@ -185,7 +202,13 @@ class SearchFragment : BaseFragment(), KodeinAware {
 //                            layoutManager = object: GridLayoutManager(activity?.applicationContext, 2) { override fun canScrollVertically() = false }
 //                        }
                         searchAdapter.setProducts(searchResponse.products)
-                        binding.textViewKeyword.text = keyword
+                        if (!keyword.isEmpty()) {
+                            binding.textViewKeyword.text = keyword
+                            _keyword = keyword
+                        } else {
+                            binding.textViewKeyword.text = "All"
+                            _keyword = "All"
+                        }
                     }
                 } else {
                     activity?.runOnUiThread {
@@ -256,6 +279,7 @@ class SearchFragment : BaseFragment(), KodeinAware {
         val LIST_STATE_KEY = "list_state"
         var savedProducts: MutableList<Product>? = null
         var itemPosition: Int = 0
+        var _keyword = ""
     }
 
 }

@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="3dp"
-            android:text="All"
+            android:text=""
             android:textSize="19sp"
             app:layout_constraintEnd_toEndOf="@+id/edit_text_search"
             app:layout_constraintStart_toStartOf="@+id/textView16"
@@ -146,8 +146,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_error" />
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -41,7 +41,7 @@ class ProductFourFragment : Fragment() {
 
     private fun startCamera() {
         val newProductActivity = activity as NewProductActivity
-        newProductActivity.startCamera()
+        newProductActivity.showSelectImage()
     }
 
     fun addImage(image: Bitmap) = imageAdapter.addImage(image)

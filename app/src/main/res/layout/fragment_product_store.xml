@@ -170,6 +170,8 @@
                 android:text=""
                 android:textColor="@color/primary"
                 android:textSize="20sp"
+                android:maxLines="2"
+                android:ellipsize="end"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageViewSeller"
                 app:layout_constraintTop_toTopOf="@+id/imageViewSeller" />

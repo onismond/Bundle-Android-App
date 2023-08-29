@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.google.gson.Gson
 import com.bundlegh.bundle.databinding.ActivityNewProductBinding
+import com.bundlegh.bundle.ui.home.HomeActivity
 import com.bundlegh.bundle.util.*
 import kotlinx.android.synthetic.main.activity_new_product.view.*
 import okhttp3.MediaType
@@ -47,7 +48,9 @@ class NewProductActivity : AppCompatActivity(), KodeinAware {
         super.onCreate(savedInstanceState)
         binding = ActivityNewProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
         viewPager2 = binding.viewPager2
         buttonNext = binding.buttonNext
         buttonPrevious = binding.buttonPrevious
@@ -61,6 +64,14 @@ class NewProductActivity : AppCompatActivity(), KodeinAware {
             nextPage()
         }
         updateCategories()
+        binding.selectImage.setOnClickListener { hideSelectImage() }
+        binding.constraintChooseImage.setOnClickListener { chooseImage() }
+        binding.constraintTakePicture.setOnClickListener { startCamera() }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     private fun setupAdapter(){
@@ -170,6 +181,17 @@ class NewProductActivity : AppCompatActivity(), KodeinAware {
         return true
     }
 
+    fun chooseImage(){
+        val fileIntent = Intent()
+        fileIntent.type = "image/*"
+        fileIntent.action = Intent.ACTION_GET_CONTENT
+        hideSelectImage()
+        startActivityForResult(Intent.createChooser(fileIntent, "Select Picture"),
+            file_id
+        )
+
+    }
+
     fun startCamera(){
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val photoFile = createImageFile()
@@ -180,13 +202,15 @@ class NewProductActivity : AppCompatActivity(), KodeinAware {
                 photoFile
             )
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-            Log.e("LOCATION", (Uri.fromFile(photoFile)).toString())
+//            Log.e("LOCATION", (Uri.fromFile(photoFile)).toString())
+            hideSelectImage()
             startActivityForResult(cameraIntent, pic_id)
         }
     }
 
     companion object {
         private const val pic_id = 123
+        private const val file_id = 1234
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -208,10 +232,15 @@ class NewProductActivity : AppCompatActivity(), KodeinAware {
                 photo = rotatedBitmap
 //                val photo = data!!.extras!!["data"] as Bitmap? // returns bitmap
                 (supportFragmentManager.findFragmentByTag("f3") as ProductFourFragment).addImage(photo!!)
+            } else if (requestCode == file_id) {
+
+                val imageUri = data!!.data
+                val photo = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+                (supportFragmentManager.findFragmentByTag("f3") as ProductFourFragment).addImage(photo!!)
             }
         } catch (e: Exception) {
-            Log.e("Error", "No image returned")
-            binding.root.snackbar("No image captured")
+//            Log.e("Error", "No image returned")
+//            binding.root.snackbar("No image captured")
         }
     }
 
@@ -286,6 +315,15 @@ class NewProductActivity : AppCompatActivity(), KodeinAware {
             }
         }
     }
+
+    fun showSelectImage() {
+        binding.selectImage.visibility = View.VISIBLE
+    }
+
+    private fun hideSelectImage() {
+        binding.selectImage.visibility = View.GONE
+    }
+
 
 }
 

@@ -169,12 +169,28 @@ class HomeViewModel(
 
     fun getUserProducts() = repository.getUserProducts()
 
+    suspend fun getProduct(productId: String) = withContext(Dispatchers.IO){
+        repository.getProduct(productId)
+    }
+
+    suspend fun getStore(storeId: String) = withContext(Dispatchers.IO){
+        repository.getStore(storeId)
+    }
+
     suspend fun geUserProducts() = withContext(Dispatchers.IO){
         repository.getUserProducts(getUserToken())
     }
 
     suspend fun getAccountTypes() = withContext(Dispatchers.IO){
         repository.getAccountTypes()
+    }
+
+    suspend fun renewAccount(contact: String) = withContext(Dispatchers.IO){
+        repository.renewAccount(contact, getUserToken())
+    }
+
+    suspend fun transactionStatus(transactionId: String) = withContext(Dispatchers.IO){
+        repository.transactionStatus(transactionId, getUserToken())
     }
 
     fun formatTime(time: String): String {
@@ -187,9 +203,6 @@ class HomeViewModel(
             return time
         }
     }
-
-
-
 
 
 //    fun getFeaturedProducts(): MutableList<Product> {

@@ -22,6 +22,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
+import java.net.SocketTimeoutException
 
 class UpdateProductFragment : Fragment(), KodeinAware {
 
@@ -138,6 +139,9 @@ class UpdateProductFragment : Fragment(), KodeinAware {
             } catch (e: NoInternetException) {
                 activity?.runOnUiThread{hideProgress()}
                 binding.root.snackbar(e.message!!)
+            } catch (e: SocketTimeoutException){
+                activity?.runOnUiThread{hideProgress()}
+                binding.root.snackbar("Please check your internet connection")
             } catch (e: Exception){
                 activity?.runOnUiThread{hideProgress()}
                 binding.root.snackbar("Sorry, an error occurred. Please try again")

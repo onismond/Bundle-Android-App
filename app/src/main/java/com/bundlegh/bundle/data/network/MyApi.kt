@@ -83,9 +83,35 @@ interface MyApi {
         @Field("token") token: String,
     ) : Response<UserProductResponse>
 
-    @GET("account-types")
+    @FormUrlEncoded
+    @POST("product/detail")
+    suspend fun getProduct(
+        @Field("product_id") product_id: String,
+    ) : Response<ProductResponse>
+
+    @FormUrlEncoded
+    @POST("store/detail")
+    suspend fun getStore(
+        @Field("store_id") store_id: String,
+    ) : Response<StoreResponse>
+
+    @GET("account/types")
     suspend fun getAccountTypes(
     ) : Response<AccountTypeResponse>
+
+    @FormUrlEncoded
+    @POST("account/renew")
+    suspend fun renewAccount(
+       @Field("contact") contact: String,
+       @Field("token") token: String,
+    ) : Response<RenewAccountResponse>
+
+    @FormUrlEncoded
+    @POST("account/transaction-status")
+    suspend fun transactionStatus(
+       @Field("transaction_id") transactionId: String,
+       @Field("token") token: String,
+    ) : Response<RenewAccountResponse>
 
     @FormUrlEncoded
     @POST("categories")
@@ -173,7 +199,7 @@ interface MyApi {
                 .build()
             return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("https://bundlegh.com/api/")
+                .baseUrl("http://192.168.72.169/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(MyApi::class.java)

@@ -1,5 +1,6 @@
 package com.bundlegh.bundle.ui.home
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -12,6 +13,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
@@ -64,6 +66,10 @@ class HomeActivity : AppCompatActivity(), KodeinAware {
             .build()
         binding.bottomNavigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        binding.selectImage.setOnClickListener { hideSelectImage() }
+        binding.constraintChooseImage.setOnClickListener { chooseImage() }
+        binding.constraintTakePicture.setOnClickListener { startCamera() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -176,6 +182,15 @@ class HomeActivity : AppCompatActivity(), KodeinAware {
         }
     }
 
+    fun chooseImage(){
+        val fileIntent = Intent()
+        fileIntent.type = "image/*"
+        fileIntent.action = Intent.ACTION_GET_CONTENT
+        hideSelectImage()
+        startActivityForResult(Intent.createChooser(fileIntent, "Select Picture"), file_id)
+
+    }
+
     fun startCamera(){
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val photoFile = createImageFile()
@@ -186,13 +201,15 @@ class HomeActivity : AppCompatActivity(), KodeinAware {
                 photoFile
             )
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-            Log.e("LOCATION", (Uri.fromFile(photoFile)).toString())
+//            Log.e("LOCATION", (Uri.fromFile(photoFile)).toString())
+            hideSelectImage()
             startActivityForResult(cameraIntent, pic_id)
         }
     }
 
     companion object {
         private const val pic_id = 1235
+        private const val file_id = 12356
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -212,12 +229,17 @@ class HomeActivity : AppCompatActivity(), KodeinAware {
 
                 val rotatedBitmap = Bitmap.createBitmap(photo, 0,0 , photo.width, photo.height, matrix, true)
                 photo = rotatedBitmap
-//                val photo = data!!.extras!!["data"] as Bitmap? // returns bitmap
+                submit(photo!!)
+            } else if (requestCode == file_id) {
+
+                val imageUri = data!!.data
+                val photo = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
                 submit(photo!!)
             }
         } catch (e: Exception) {
-            Log.e("Error", "No image returned")
-            binding.root.snackbar("No image captured")
+//            Log.e("Error", e.message!!)
+//            binding.root.snackbar("No image captured")
+
         }
     }
 
@@ -334,6 +356,11 @@ class HomeActivity : AppCompatActivity(), KodeinAware {
         }
     }
 
+    fun go_back_twice() {
+        onBackPressed()
+        onBackPressed()
+    }
+
     private fun update(userProduct: UserProduct) {
         val bundle = Bundle()
         bundle.putString("product_id", userProduct.id)
@@ -341,6 +368,15 @@ class HomeActivity : AppCompatActivity(), KodeinAware {
             R.id.action_productsFragment_to_updateProductFragment,
             bundle,
         )
+    }
+
+    fun checkAppUpdates(latestVersion: String) {
+        val latest_version = Integer.parseInt(latestVersion.replace(".", ""))
+        val current_version = packageManager.getPackageInfo(packageName, 0).versionCode
+        binding.root.snackbar("$latestVersion $current_version")
+        if (latest_version > current_version) {
+            binding.root.snackbar("There is an update to be made")
+        }
     }
 
     fun showProgress() {
@@ -352,6 +388,15 @@ class HomeActivity : AppCompatActivity(), KodeinAware {
         binding.progres.visibility = View.INVISIBLE
         Log.e("E", "hide progress clisked")
     }
+
+    fun ShowSelectImage() {
+        binding.selectImage.visibility = View.VISIBLE
+    }
+
+    private fun hideSelectImage() {
+        binding.selectImage.visibility = View.GONE
+    }
+
 
 }
 

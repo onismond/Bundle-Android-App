@@ -66,9 +66,9 @@ class UpgradeAccountFragment : BaseFragment(), KodeinAware {
             } catch (e: Exception) {
                 activity?.runOnUiThread {
                     showError()
-                    binding.root.snackbar("Sorry, an error occurred")
+                    e.printStackTrace()
+                    binding.root.snackbar("Please check your internet connection")
                 }
-                e.printStackTrace()
             }
         }
     }

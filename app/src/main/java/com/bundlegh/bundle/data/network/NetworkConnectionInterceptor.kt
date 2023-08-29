@@ -6,6 +6,7 @@ import android.net.NetworkCapabilities
 import com.bundlegh.bundle.util.NoInternetException
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.net.SocketTimeoutException
 
 class NetworkConnectionInterceptor(
     context: Context
@@ -16,7 +17,13 @@ class NetworkConnectionInterceptor(
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!isInternetAvailable())
             throw NoInternetException("Make sure you have an active data connection")
-        return chain.proceed(chain.request()) ////////// Possible SocketTimeout Exception /////////////
+        lateinit var response: Response
+        try {
+            response = chain.proceed(chain.request())
+        } catch (e: SocketTimeoutException){
+            throw NoInternetException("Make sure you have an active data connection")
+        }
+        return response////////// Possible SocketTimeout Exception /////////////
     }///////////////
 
     private fun isInternetAvailable(): Boolean {

@@ -27,7 +27,6 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/product"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,13 +36,15 @@
     <TextView
         android:id="@+id/text_view_name"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@color/btn_primary_ripple"
-        android:clickable="true"
+        android:textColor="@color/primary"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
-        android:text="Product Name"
-        android:textSize="20sp"
+        android:textSize="19sp"
+        android:maxLines="2"
+        android:ellipsize="end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_view_container"
         app:layout_constraintTop_toTopOf="@+id/image_view_container" />
@@ -53,19 +54,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginTop="10dp"
         android:text="GHC "
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_name" />
+        app:layout_constraintTop_toBottomOf="@+id/image_view_container" />
 
     <TextView
         android:id="@+id/text_view_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="70.00"
+        android:text=""
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toTopOf="@+id/textView6" />
@@ -75,20 +75,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="UCC"
-        android:textSize="20sp"
+        android:text=""
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/image_view_container"
         app:layout_constraintTop_toBottomOf="@+id/text_view_name" />
 
     <ImageView
         android:id="@+id/image_view_remove"
-        android:layout_width="20dp"
-        android:layout_height="25dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_decrease_quantity"
         app:layout_constraintStart_toEndOf="@+id/text_view_amount"
-        app:srcCompat="@drawable/location" />
+        app:srcCompat="@android:drawable/ic_menu_delete" />
 
     <Button
         android:id="@+id/button_decrease_quantity"
@@ -107,6 +107,7 @@
         android:layout_marginBottom="1dp"
         android:text="1"
         android:textAlignment="center"
+        android:gravity="center"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_increase_quantity"

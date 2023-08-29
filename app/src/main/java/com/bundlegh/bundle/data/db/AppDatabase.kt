@@ -11,10 +11,10 @@ import com.bundlegh.bundle.data.db.entities.*
     entities = [User::class, Product::class, Cart::class, Order::class, UserProduct::class,
         Category::class, SubCategory::class, SliderImage::class, BottomAd::class, TopAd::class,
         School::class, Profile::class],
-    version = 1,
-//    autoMigrations = [
-//        AutoMigration(from = 1, to = 2),
-//    ],
+    version = 2,
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2),
+    ],
 )
 abstract class AppDatabase : RoomDatabase() {
 

@@ -233,7 +233,11 @@
         android:id="@+id/renewAccountFragment"
         android:name="com.bundlegh.bundle.ui.home.renew_account.RenewAccountFragment"
         android:label="Renew Subscription"
-        tools:layout="@layout/fragment_renew_account" />
+        tools:layout="@layout/fragment_renew_account" >
+        <action
+            android:id="@+id/action_renewAccountFragment_to_renewAccountStatusFragment"
+            app:destination="@id/renewAccountStatusFragment" />
+    </fragment>
     <fragment
         android:id="@+id/upgradeAccountFragment"
         android:name="com.bundlegh.bundle.ui.home.upgrade_account.UpgradeAccountFragment"
@@ -254,5 +258,10 @@
         android:name="com.bundlegh.bundle.ui.home.notifications.NotificationsFragment"
         android:label="Notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/renewAccountStatusFragment"
+        android:name="com.bundlegh.bundle.ui.home.renew_account_status.RenewAccountStatusFragment"
+        android:label="Renew Account Status"
+        tools:layout="@layout/fragment_renew_account_status" />
 
 </navigation>

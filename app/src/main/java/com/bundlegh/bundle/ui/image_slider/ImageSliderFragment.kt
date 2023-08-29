@@ -12,10 +12,10 @@ import com.bundlegh.bundle.databinding.FragmentImageSliderBinding
 import com.bundlegh.bundle.util.snackbar
 import kotlinx.android.synthetic.main.item_product.view.*
 
-private const val ID = ""
-private const val IMAGE = ""
-private const val PRODUCT_ID = "0"
-private const val STORE_ID = "0"
+private const val ID = "ID"
+private const val IMAGE = "IMAGE"
+private const val PRODUCT_ID = "PRODUCT_ID"
+private const val STORE_ID = "STORE_ID"
 
 class ImageSliderFragment : Fragment() {
 
@@ -46,7 +46,7 @@ class ImageSliderFragment : Fragment() {
         binding.imageView.clipToOutline = true
         binding.imageView.setOnClickListener {
             arguments?.let {
-//                binding.root.snackbar(it.getString(ID).toString() + it.getString(ID).toString())
+//                binding.root.snackbar(it.getString(PRODUCT_ID).toString() + it.getString(STORE_ID).toString())
                 onImageClicked.invoke(it.getString(PRODUCT_ID), it.getString(STORE_ID))
             }
 

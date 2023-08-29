@@ -208,22 +208,22 @@
                 android:textColor="@color/black"
                 android:textSize="19sp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="?android:attr/listDivider" />
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                android:background="?android:attr/listDivider" />-->
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch1"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:clickable="false"
-                android:focusable="false"
-                android:background="?android:selectableItemBackground"
-                android:text="   Dark Mode"
-                android:textSize="19sp" />
+<!--            <androidx.appcompat.widget.SwitchCompat-->
+<!--                android:id="@+id/switch1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:clickable="false"-->
+<!--                android:focusable="false"-->
+<!--                android:background="?android:selectableItemBackground"-->
+<!--                android:text="   Dark Mode"-->
+<!--                android:textSize="19sp" />-->
 
         </LinearLayout>
 

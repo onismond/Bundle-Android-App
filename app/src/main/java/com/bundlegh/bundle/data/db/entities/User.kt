@@ -17,7 +17,10 @@ data class User(
     var token: String? = null,
     var email_verified_at: String? = null,
     var created_at: String? = null,
-    var updated_at: String? = null
+    var updated_at: String? = null,
+    var latest_version: String? = null,
+    var location: String? = null,
+    var school_location: String? = null,
 ){
     @PrimaryKey(autoGenerate = false)
     var uid: Int = CURRENT_USER_ID

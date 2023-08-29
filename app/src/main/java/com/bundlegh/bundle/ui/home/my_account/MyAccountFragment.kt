@@ -1,12 +1,14 @@
 package com.bundlegh.bundle.ui.home.my_account
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bundlegh.bundle.R
 import com.bundlegh.bundle.data.db.entities.Profile
 import com.bundlegh.bundle.databinding.FragmentMyAccountBinding
 import com.bundlegh.bundle.ui.home.HomeViewModel
@@ -63,10 +65,10 @@ class MyAccountFragment : BaseFragment(), KodeinAware {
         Coroutines.io {
             try {
                 val response = viewModel.loadProfile()
-                if (profile !=response.profile)
+                if (profile != response.profile)
                     viewModel.saveProfile(response.profile)
             } catch (e: Exception) {
-//
+//                e.printStackTrace()
             }
 
         }
@@ -88,7 +90,11 @@ class MyAccountFragment : BaseFragment(), KodeinAware {
     }
 
     private fun renewAccount() {
-        val action = MyAccountFragmentDirections.actionMyAccountFragmentToRenewAccountFragment()
-        this.findNavController().navigate(action)
+        val bundle = Bundle()
+        bundle.putString("amount", profile?.amount)
+        this.findNavController().navigate(
+            R.id.action_myAccountFragment_to_renewAccountFragment,
+            bundle
+        )
     }
 }

@@ -165,12 +165,28 @@ class HomeRepository(
 
     fun getUserProducts() = db.getUserProductDao().getproducts()
 
+    suspend fun getProduct(productId: String): ProductResponse {
+        return apiRequest { api.getProduct(productId) }
+    }
+
+    suspend fun getStore(storeId: String): StoreResponse {
+        return apiRequest { api.getStore(storeId) }
+    }
+
     suspend fun getUserProducts(token: String): UserProductResponse {
         return apiRequest { api.getUserProducts(token) }
     }
 
     suspend fun getAccountTypes(): AccountTypeResponse {
         return apiRequest { api.getAccountTypes() }
+    }
+
+    suspend fun renewAccount(contact: String, token: String): RenewAccountResponse {
+        return apiRequest { api.renewAccount(contact, token) }
+    }
+
+    suspend fun transactionStatus(transactionId: String, token: String): RenewAccountResponse {
+        return apiRequest { api.transactionStatus(transactionId, token) }
     }
 
 }

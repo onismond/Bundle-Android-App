@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "52b2acf9d3b809b691892fe9cb0a3d7c",
+    "identityHash": "e0df8ff30c5d1cd06f21db6be9cffd46",
     "entities": [
       {
         "tableName": "User",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `name` TEXT, `username` TEXT, `email` TEXT, `contact` TEXT, `avatar` TEXT, `school` TEXT, `token` TEXT, `email_verified_at` TEXT, `created_at` TEXT, `updated_at` TEXT, `uid` INTEGER NOT NULL, PRIMARY KEY(`uid`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `name` TEXT, `username` TEXT, `email` TEXT, `contact` TEXT, `avatar` TEXT, `school` TEXT, `latest_version` TEXT, `location` TEXT, `school_location` TEXT, `token` TEXT, `email_verified_at` TEXT, `created_at` TEXT, `updated_at` TEXT, `uid` INTEGER NOT NULL, PRIMARY KEY(`uid`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -47,6 +47,24 @@
           {
             "fieldPath": "school",
             "columnName": "school",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "latest_version",
+            "columnName": "latest_version",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "location",
+            "columnName": "location",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "school_location",
+            "columnName": "school_location",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -596,7 +614,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '52b2acf9d3b809b691892fe9cb0a3d7c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e0df8ff30c5d1cd06f21db6be9cffd46')"
     ]
   }
 }

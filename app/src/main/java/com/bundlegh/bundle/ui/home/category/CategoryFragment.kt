@@ -47,6 +47,9 @@ class CategoryFragment : BaseFragment(), KodeinAware {
         viewModel = ViewModelProvider(this, factory)[(HomeViewModel::class.java)]
         categoryId = arguments?.getString("category_id") ?: ""
         setup()
+        binding.buttonReload.setOnClickListener {
+            setupRecyclerView()
+        }
         return binding.root
     }
 
@@ -98,10 +101,12 @@ class CategoryFragment : BaseFragment(), KodeinAware {
     private fun setupRecyclerView() {
         Coroutines.io {
             try {
+                activity?.runOnUiThread { showProgress() }
                 val response = viewModel.getCategoryProduct(category.id)
                 if (response.isSuccessful!!){
                     productAdapter = ProductAdapter(response.products!!, activity?.applicationContext!!)
                     activity?.runOnUiThread {
+                        hideProgress()
                         binding.recyclerViewProducts.apply {
                             adapter = productAdapter.apply {
                                 onProductClicked = { product, pos ->
@@ -113,9 +118,20 @@ class CategoryFragment : BaseFragment(), KodeinAware {
                     }
                 }
             } catch (e: ApiException) {
-                activity?.runOnUiThread { binding.root.snackbar(e.message!!) }
+                activity?.runOnUiThread {
+                    showError()
+//                    binding.root.snackbar(e.message!!)
+                }
             } catch (e: NoInternetException) {
-                activity?.runOnUiThread { binding.root.snackbar(e.message!!) }
+                activity?.runOnUiThread {
+                    showError()
+//                    binding.root.snackbar(e.message!!)
+                }
+            } catch (e: Exception) {
+                activity?.runOnUiThread {
+                    showError()
+//                    binding.root.snackbar("Please check your internet connection")
+                }
             }
         }
     }
@@ -134,4 +150,20 @@ class CategoryFragment : BaseFragment(), KodeinAware {
 
     }
 
+    private fun showProgress() {
+        binding.recyclerViewProducts.visibility = View.GONE
+        binding.error.visibility = View.GONE
+        binding.progress.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        binding.progress.visibility = View.GONE
+        binding.recyclerViewProducts.visibility = View.VISIBLE
+    }
+
+    private fun showError() {
+        binding.progress.visibility = View.GONE
+        binding.recyclerViewProducts.visibility = View.GONE
+        binding.error.visibility = View.VISIBLE
+    }
 }

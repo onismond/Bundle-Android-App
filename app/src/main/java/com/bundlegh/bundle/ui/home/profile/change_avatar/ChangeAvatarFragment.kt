@@ -36,7 +36,7 @@ class ChangeAvatarFragment : BaseFragment(), KodeinAware {
         setup()
         binding.buttonChange.setOnClickListener {
             val homeActivity = activity as HomeActivity
-            homeActivity.startCamera()
+            homeActivity.ShowSelectImage()
         }
         return binding.root
     }

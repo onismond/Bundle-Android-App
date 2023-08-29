@@ -11,4 +11,5 @@ data class IndexResponse(
     val slider_images: MutableList<SliderImage>,
     val bottom_ads: MutableList<BottomAd>,
     val top_ads: MutableList<TopAd>,
+    val latest_version: String,
 )
