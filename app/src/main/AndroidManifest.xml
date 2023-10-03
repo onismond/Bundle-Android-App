@@ -20,7 +20,7 @@
         android:roundIcon="@drawable/icon_normal"
         android:supportsRtl="true"
         android:theme="@style/Theme.Bundle"
-        android:usesCleartextTraffic="true"
+        android:usesCleartextTraffic="false"
         tools:targetApi="31">
 
         <!--

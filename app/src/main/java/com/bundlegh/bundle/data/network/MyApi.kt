@@ -199,7 +199,7 @@ interface MyApi {
                 .build()
             return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("http://192.168.72.169/api/")
+                .baseUrl("https://bundlegh.com/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(MyApi::class.java)

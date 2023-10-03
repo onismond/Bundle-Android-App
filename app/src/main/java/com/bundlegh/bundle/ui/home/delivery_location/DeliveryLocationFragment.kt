@@ -81,11 +81,11 @@ class DeliveryLocationFragment : BaseFragment(), KodeinAware, OnMapReadyCallback
     private fun confirmLocation() {
         val location = "${marker?.position?.latitude},${marker?.position?.longitude}"
         if (location.equals("null,null")) {
-            binding.root.snackbar("Please wait to select your store location on the map")
+            binding.root.snackbar("Please wait to select your location on the map")
             return
         }
         if (location.equals("5.115526355346435,-1.2915171682834625")) {
-            binding.root.snackbar("Please select your store location on the map")
+            binding.root.snackbar("Please select your location on the map")
             return
         }
         val bundle = Bundle()

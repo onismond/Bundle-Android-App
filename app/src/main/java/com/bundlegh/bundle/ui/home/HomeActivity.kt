@@ -1,6 +1,6 @@
 package com.bundlegh.bundle.ui.home
 
-import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -13,7 +13,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
@@ -21,19 +20,16 @@ import androidx.exifinterface.media.ExifInterface
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.gson.Gson
 import com.bundlegh.bundle.R
 import com.bundlegh.bundle.data.db.entities.UserProduct
 import com.bundlegh.bundle.databinding.ActivityHomeBinding
 import com.bundlegh.bundle.ui.auth.LoginActivity
-import com.bundlegh.bundle.ui.home.home.HomeFragmentDirections
-import com.bundlegh.bundle.ui.home.profile.ProfileFragmentDirections
 import com.bundlegh.bundle.util.*
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_home.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -50,6 +46,7 @@ class HomeActivity : AppCompatActivity(), KodeinAware {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var navController: NavController
     private lateinit var viewModel: HomeViewModel
+    private var updateChecked = false
     lateinit var currentPhotoPath: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +67,8 @@ class HomeActivity : AppCompatActivity(), KodeinAware {
         binding.selectImage.setOnClickListener { hideSelectImage() }
         binding.constraintChooseImage.setOnClickListener { chooseImage() }
         binding.constraintTakePicture.setOnClickListener { startCamera() }
+        binding.buttonCancelAppUpdate.setOnClickListener { hideAppUpdate() }
+        binding.buttonUpdateApp.setOnClickListener { updateApp() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -371,17 +370,37 @@ class HomeActivity : AppCompatActivity(), KodeinAware {
     }
 
     fun checkAppUpdates(latestVersion: String) {
+        if (updateChecked)
+            return
         val latest_version = Integer.parseInt(latestVersion.replace(".", ""))
         val current_version = packageManager.getPackageInfo(packageName, 0).versionCode
-        binding.root.snackbar("$latestVersion $current_version")
+//        binding.root.snackbar("$latest_version $current_version")
         if (latest_version > current_version) {
-            binding.root.snackbar("There is an update to be made")
+            showAppUpdate()
+            updateChecked = true
+        }
+    }
+
+    private fun updateApp() {
+        val appPackageName: String = applicationContext.packageName
+        try {
+            val appStoreIntent =
+                Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName"))
+            appStoreIntent.setPackage("com.android.vending")
+            startActivity(appStoreIntent)
+        } catch (exception: ActivityNotFoundException) {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                )
+            )
         }
     }
 
     fun showProgress() {
         binding.progres.visibility = View.VISIBLE
-        Log.e("E", "show progress clisked")
+        Log.e("E", "show progress clicked")
     }
 
     fun hideProgress() {
@@ -395,6 +414,14 @@ class HomeActivity : AppCompatActivity(), KodeinAware {
 
     private fun hideSelectImage() {
         binding.selectImage.visibility = View.GONE
+    }
+
+    private fun showAppUpdate() {
+        binding.updateApp.visibility = View.VISIBLE
+    }
+
+    private fun hideAppUpdate() {
+        binding.updateApp.visibility = View.GONE
     }
 
 
