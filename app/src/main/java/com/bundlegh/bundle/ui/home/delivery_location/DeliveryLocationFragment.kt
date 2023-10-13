@@ -44,15 +44,9 @@ class DeliveryLocationFragment : BaseFragment(), KodeinAware, OnMapReadyCallback
     private val factory: HomeViewModelFactory by instance()
     override var bottomNavigationViewVisibility = View.INVISIBLE
     private lateinit var binding: FragmentDeliveryLocationBinding
-    private lateinit var placesClient: PlacesClient
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0
-    private var locationPermissionGranted = true
-    private var mapInitialized = false
-    private var lastKnownLocation: Location? = null
     private lateinit var viewModel: HomeViewModel
-    private lateinit var googleMap: GoogleMap
-    private var marker: Marker? = null
+
     private val zoom = 18F
     private val locationIcon: BitmapDescriptor by lazy {
         val color = ContextCompat.getColor(activity?.applicationContext!!, R.color.primary)
@@ -77,6 +71,7 @@ class DeliveryLocationFragment : BaseFragment(), KodeinAware, OnMapReadyCallback
         }
         return binding.root
     }
+
 
     private fun confirmLocation() {
         val location = "${marker?.position?.latitude},${marker?.position?.longitude}"
@@ -105,7 +100,7 @@ class DeliveryLocationFragment : BaseFragment(), KodeinAware, OnMapReadyCallback
                 title("Delivery Location")
                 icon(locationIcon)
             }
-            updateLocationUI()
+//            updateLocationUI()
         }
         getLocationPermission()
         updateLocationUI()
@@ -180,7 +175,7 @@ class DeliveryLocationFragment : BaseFragment(), KodeinAware, OnMapReadyCallback
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
          */
-        try {
+//        try {
             if (locationPermissionGranted) {
                 val locationResult = fusedLocationProviderClient.lastLocation
                 locationResult.addOnCompleteListener(requireActivity()) { task ->
@@ -191,11 +186,11 @@ class DeliveryLocationFragment : BaseFragment(), KodeinAware, OnMapReadyCallback
                             val latLng = LatLng(lastKnownLocation!!.latitude,
                                 lastKnownLocation!!.longitude)
                             googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom))
-                            marker = googleMap.addMarker {
-                                position(latLng)
-                                title("Delivery Location")
-                                icon(locationIcon)
-                            }
+//                            marker = googleMap.addMarker {
+//                                position(latLng)
+//                                title("Delivery Location")
+//                                icon(locationIcon)
+//                            }
                         } else {
                             setDefaultLocation()
                         }
@@ -207,9 +202,9 @@ class DeliveryLocationFragment : BaseFragment(), KodeinAware, OnMapReadyCallback
             } else {
                 setDefaultLocation()
             }
-        } catch (e: SecurityException) {
-            setDefaultLocation()
-        }
+//        } catch (e: SecurityException) {
+//            setDefaultLocation()
+//        }
     }
 
     private fun setDefaultLocation() {
@@ -224,7 +219,14 @@ class DeliveryLocationFragment : BaseFragment(), KodeinAware, OnMapReadyCallback
         }
     }
 
-
-
+    companion object{
+        private lateinit var googleMap: GoogleMap
+        private var marker: Marker? = null
+        private var locationPermissionGranted = true
+        private var mapInitialized = false
+        private lateinit var placesClient: PlacesClient
+        private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+        private var lastKnownLocation: Location? = null
+    }
 
 }

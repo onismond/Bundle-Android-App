@@ -52,8 +52,7 @@ class SignupActivity : AppCompatActivity(), KodeinAware {
         setupAdapter()
         loadSchools()
         binding.buttonPrevious.setOnClickListener {
-            binding.viewPager2.previousPage(true)
-            buttonNext.text = "Next"
+            previousPage()
         }
         binding.buttonNext.setOnClickListener {
             nextPage()
@@ -81,8 +80,17 @@ class SignupActivity : AppCompatActivity(), KodeinAware {
 //            binding.root.snackbar("Signup clicked")
             userSignup()
         }
-        if (!last){
+        if (last){
             buttonNext.text = "Sign me Up"
+        }
+        buttonPrevious.visibility = View.VISIBLE
+    }
+
+    private fun previousPage() {
+        val first = viewPager2.previousPage(true)
+        buttonNext.text = "Next"
+        if (first) {
+            buttonPrevious.visibility = View.GONE
         }
     }
 
