@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
 import com.bundlegh.bundle.R
 import com.bundlegh.bundle.data.db.entities.Product
+import com.bundlegh.bundle.data.db.entities.Store
 import com.bundlegh.bundle.data.preferences.PreferenceProvider
 import com.bundlegh.bundle.databinding.FragmentSearchBinding
 import com.bundlegh.bundle.ui.home.HomeViewModel
@@ -43,6 +44,7 @@ class SearchFragment : BaseFragment(), KodeinAware {
     private lateinit var editTextSearch: SearchView
     private lateinit var textViewKeyword: TextView
     private lateinit var recyclerViewSearch: RecyclerView
+    private lateinit var recyclerViewStore: RecyclerView
     private lateinit var searchAdapter: ProductAdapter
 
     override fun onCreateView(
@@ -56,6 +58,7 @@ class SearchFragment : BaseFragment(), KodeinAware {
         editTextSearch = binding.editTextSearch
         textViewKeyword = binding.textViewKeyword
         recyclerViewSearch = binding.recyclerViewSearch
+        recyclerViewStore = binding.recyclerViewStore
         editTextSearch.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 search(p0.toString())
@@ -178,6 +181,7 @@ class SearchFragment : BaseFragment(), KodeinAware {
             layoutManager = object: GridLayoutManager(activity?.applicationContext, 2) { override fun canScrollVertically() = false }
         }
 
+
 //        binding.textViewKeyword.text = keyword
 
     }
@@ -191,18 +195,18 @@ class SearchFragment : BaseFragment(), KodeinAware {
                 val searchResponse = viewModel.getSearchItems(keyword)
                 if (!searchResponse.empty) {
                     savedProducts = searchResponse.products!!
-//                    searchAdapter = ProductAdapter(searchResponse.products!!, requireActivity().applicationContext)
+                    val storeAdapter = StoreAdapter(searchResponse.stores!!, requireActivity().applicationContext)
                     activity?.runOnUiThread {
-//                        recyclerViewSearch.apply {
-//                            adapter = searchAdapter.apply {
-//                                onProductClicked = { product, pos ->
-//                                    productClicked(product, pos)
-//                                }
-//                            }
-//                            layoutManager = object: GridLayoutManager(activity?.applicationContext, 2) { override fun canScrollVertically() = false }
-//                        }
+                        recyclerViewStore.apply {
+                            adapter = storeAdapter.apply {
+                                onStoreClicked = { store, _ ->
+                                    storeClicked(store)
+                                }
+                            }
+                            layoutManager = object: GridLayoutManager(activity?.applicationContext, 2) { override fun canScrollVertically() = false }
+                        }
                         searchAdapter.setProducts(searchResponse.products)
-                        if (!keyword.isEmpty()) {
+                        if (keyword.isNotEmpty()) {
                             binding.textViewKeyword.text = keyword
                             _keyword = keyword
                         } else {
@@ -242,6 +246,33 @@ class SearchFragment : BaseFragment(), KodeinAware {
         } else {
             val action = SearchFragmentDirections.actionSearchFragmentToProductFragment()
             this.findNavController().navigate(action)
+        }
+
+    }
+
+    private fun storeClicked(store: Store) {
+        val bundle = Bundle()
+        if (store.is_store!!) {
+            bundle.putString("store_id", store.id)
+            bundle.putString("name", store.name)
+            bundle.putString("image", store.image)
+            bundle.putString("open_time", store.open_time)
+            bundle.putString("close_time", store.close_time)
+            bundle.putString("location", store.location)
+            this.findNavController().navigate(
+                R.id.action_searchFragment_to_storeFragment,
+                bundle
+            )
+        } else {
+            bundle.putString("store_id", store.id)
+            bundle.putString("name", store.name)
+            bundle.putString("image", store.image)
+            bundle.putString("contact", store.contact)
+            bundle.putString("location", store.location)
+            this.findNavController().navigate(
+                R.id.action_searchFragment_to_shopFragment,
+                bundle
+            )
         }
 
     }

@@ -101,6 +101,12 @@
         <action
             android:id="@+id/action_searchFragment_to_productStoreFragment"
             app:destination="@id/productStoreFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_storeFragment"
+            app:destination="@id/storeFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_shopFragment"
+            app:destination="@id/shopFragment" />
     </fragment>
     <fragment
         android:id="@+id/productFragment"

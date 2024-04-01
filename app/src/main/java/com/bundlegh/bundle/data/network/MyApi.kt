@@ -199,7 +199,7 @@ interface MyApi {
                 .build()
             return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("http://192.168.8.124/api/")
+                .baseUrl("http://192.168.109.183/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(MyApi::class.java)
